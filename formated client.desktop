@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=formated client
+Comment=formated client
+Exec=bash list_formated.sh
+Icon=accessories-text-editor
+Path=
+Terminal=true
+StartupNotify=false

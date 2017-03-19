@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=client list
+Comment=client list
+Exec=bash client_list.sh
+Icon=alacarte
+Path=
+Terminal=true
+StartupNotify=false
+GenericName=client list
