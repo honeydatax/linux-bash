@@ -35,7 +35,11 @@ grep -i -v " $toFind :"  client.txt > clientdelete.txt
 printf "client delete:\n" 
 printf "$toFind" 
 
-sudo cp clientdelete.txt client.txt
+rm client.txt
+
+cp clientdelete.txt client.txt
+
+chmod 777 client.txt
 
 read nnull
 
