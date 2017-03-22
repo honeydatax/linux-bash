@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=calender
+Comment=calender
+Exec=bash calendar.sh
+Icon=alacarte
+Path=
+Terminal=true
+StartupNotify=false
+GenericName=client find
