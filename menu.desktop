@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=clock
+Comment=menu
+Exec=bash menu.sh
+Icon=system-users
+Path=
+Terminal=true
+StartupNotify=false
