@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=shotdown
+Comment=
+Exec=sudo shutdown -h now
+Icon=boot
+Path=
+Terminal=true
+StartupNotify=false
+GenericName=
