@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=ramdirver
+
+Exec=Thunar %F /mnt/ramdisk
+Icon=Thunar
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=System;Utility;Core;GTK;FileTools;FileManager;
+
+# vi:set encoding=UTF-8:
