@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=multi task
+Comment=multi task
+Exec=bash mtask.sh
+Icon=system-users
+Path=
+Terminal=true
+StartupNotify=false
+GenericName=
