@@ -1,0 +1,30 @@
+.\" Manpage for select
+.\" honeydatax
+.TH man 0 "15 APR 2017"1.0"select man page
+.SH NAME
+select \- select demo to extend bash command line utilitis
+.SH SYNOPSIS
+select  compile:g++ select.c -o select  run:./select
+.SH DESCRIPTION
+select ./select 'item 1' 'item 2' 'item 3' 'item 4' ;printf "you select >> %s\n" $?;
+.SH OPTIONS
+select select a list of options 
+.SH ALSO
+more honey datax on net
+.SH BUGS
+not complet yet
+.SH AUTHOR
+honeydatax
+
+
+
+
+
+
+
+
+
+
+
+
+

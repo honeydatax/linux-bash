@@ -1,0 +1,30 @@
+.\" Manpage for window
+.\" honeydatax
+.TH man 0 "15 APR 2017"1.0"window man page
+.SH NAME
+window \- window demo to extend bash command line utilitis
+.SH SYNOPSIS
+window  compile:g++ window.c -o window -lncurses run:./window
+.SH DESCRIPTION
+window  demo source code to ncurses.h and curses.h to creat obj of windows
+.SH OPTIONS
+window  demo source code to ncurses.h and curses.h to creat obj of windows window  compile:g++ window.c -o window -lncurses run:./window
+.SH ALSO
+more honey datax on net
+.SH BUGS
+not complet yet
+.SH AUTHOR
+honeydatax
+
+
+
+
+
+
+
+
+
+
+
+
+
