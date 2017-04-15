@@ -1,0 +1,30 @@
+.\" Manpage for add
+.\" honeydatax
+.TH man 0 "15 APR 2017"1.0"add man page
+.SH NAME
+add \- add two integer numbers and save it to file
+.SH SYNOPSIS
+add [number] [number] [file.txt]
+.SH DESCRIPTION
+add is a program to add two numbers and to output the solved resolt into  a file to be used in command line
+.SH OPTIONS
+2 integer number to add to and file name to put the solve resolt
+.SH ALSO
+more honey datax on net
+.SH BUGS
+not complet yet
+.SH AUTHOR
+honeydatax
+
+
+
+
+
+
+
+
+
+
+
+
+

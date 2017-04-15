@@ -1,0 +1,30 @@
+.\" Manpage for mul
+.\" honeydatax
+.TH man 0 "15 APR 2017"1.0"add man page
+.SH NAME
+mul \- aritemetic mul two integer numbers and save it to file
+.SH SYNOPSIS
+mul [mumber] [number] [file.txt]
+.SH DESCRIPTION
+mul is a program to mul aritemetic two numbers and to output the solved resolt into  a file to be used in command line
+.SH OPTIONS
+2 integer number to mul to and file name to put the solve resolt
+.SH ALSO
+more honey datax on net
+.SH BUGS
+not complet yet
+.SH AUTHOR
+honeydatax
+
+
+
+
+
+
+
+
+
+
+
+
+
