@@ -1,0 +1,30 @@
+.\" Manpage for tprint
+.\" honeydatax
+.TH man 0 "15 APR 2017"1.0"bat man page
+.SH NAME
+tprint \- tprint multitask evironent to bash commands
+.SH SYNOPSIS
+tprint [file.in] [file.out] &
+.SH DESCRIPTION
+tprint is utility to multitask evironent to bash commands prints help files in the screen
+.SH OPTIONS
+tprint [file.in] the mkfifo file to get the e\n command or exit command or tprint end command ,[file.out] mkfifo file output of command multitask help out in the screen ,commands to fifo file s for clear the sreen: sn , command: c to chang color of text: c[text color 0..7] [back color 0..7] n, command g to goto y x part of the screen : g[y] [x] n,command p to print the text:p[text to print],command e exit get out of bat utulity : e\n
+.SH ALSO
+more honey datax on net
+.SH BUGS
+not complet yet
+.SH AUTHOR
+honeydatax
+
+
+
+
+
+
+
+
+
+
+
+
+

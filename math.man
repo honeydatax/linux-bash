@@ -1,0 +1,30 @@
+.\" Manpage for maths
+.\" honeydatax
+.TH man 0 "15 APR 2017"1.0"maths man page
+.SH NAME
+maths \- maths multitask evironent to bash commands
+.SH SYNOPSIS
+maths [file.out] 
+.SH DESCRIPTION
+maths is utility to math numberes from -10 into 10 in the screen  to bash commands in the window
+.SH OPTIONS
+maths [file.out] file output of command presention out in the screen ,commands to file s for sleep x seconds on the end of presentetion: s[seconds]n , command: n to draw new number representation: n[x -10..10] [y -10..10] [r red b blue or g green] n,
+.SH ALSO
+more honey datax on net
+.SH BUGS
+not complet yet
+.SH AUTHOR
+honeydatax
+
+
+
+
+
+
+
+
+
+
+
+
+

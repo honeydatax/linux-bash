@@ -1,0 +1,30 @@
+.\" Manpage for graphic
+.\" honeydatax
+.TH man 0 "15 APR 2017"1.0"graphic man page
+.SH NAME
+graphic \- tprint multitask evironent to bash commands
+.SH SYNOPSIS
+graphic [file.in] [file.out] &
+.SH DESCRIPTION
+graphic is utility to multitask evironent to bash commands prints presention in the window
+.SH OPTIONS
+graphic [file.in] the mkfifo file to get the e\n command or exit command or graphic end command ,[file.out] mkfifo file output of command multitask presention out in the screen ,commands to fifo file s for sleep x seconds: s[seconds]n , command: n to draw new rectangle: n[x] [y] [w] [h] [red 0..255] [blue 0..255] [green 0..255] n, command p change title window : p[text] n,command e exit get out of bat utulity : e\n
+.SH ALSO
+more honey datax on net
+.SH BUGS
+not complet yet
+.SH AUTHOR
+honeydatax
+
+
+
+
+
+
+
+
+
+
+
+
+
