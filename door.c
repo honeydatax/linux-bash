@@ -16,9 +16,12 @@
 #define ddir ".\0"
 
 void list();
+static int cmpstringp(const void *p1, const void *p2);
 
 
-char door[10][50]; 
+int ttotal;
+char door[500][50]; 
+char *pdoor[500];
 time_t rawtime;
 struct tm *timeinfo;
 struct timeval start, ends;
@@ -50,7 +53,12 @@ char *s2;
 int t=0;
 long ll=0;
 int i1=40,i2=40,i3=10,i4=10,i5=0,i6,i7,i8,i9,i10,i11,i12;
+for (i1=0;i1<500;i1++){
+door[i1][0]=0;
+pdoor[i1]=&door[i1][0];
+}
 list();
+qsort(&pdoor[1], ttotal-1, sizeof(char *), cmpstringp);
 SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 atexit(SDL_Quit);
 sss=SDL_SetVideoMode(600,300,8,0);
@@ -137,7 +145,8 @@ i1=event.motion.x;
 i2=event.motion.y;
 for(i4=600;i4<608;i4++){
 if ((i1>rrr[i4].x)&&(i1<rrr[i4].x+rrr[i4].w)&&(i2>rrr[i4].y)&&(i2<rrr[i4].y+rrr[i4].h)){
-strcpy(h,door[i4-600]);
+strcpy(h,"DOOR>: ");
+strcat(h,pdoor[i4-600]);
 }
 }
 SDL_WM_SetCaption(h,NULL);
@@ -157,25 +166,34 @@ int total=0;
 int kkl=0;
 DIR *dir=opendir(ddir);
 struct dirent *ldir;
-strcpy(door[total],"DOOR ");
-strcat(door[total],"/..");
-strcat(door[total]," ");
-strcat(door[total],"/");
+strcpy(door[total],"/..");
 total++;
-
 ldir=readdir(dir);
 if (ldir==NULL)kkl=1;
 while(kkl!=1){
-strcpy(door[total],"DOOR ");
-strcat(door[total],ldir->d_name);
-strcat(door[total]," ");
+if (ldir->d_type==DT_DIR){
+strcpy(door[total],ldir->d_name);
 total++;
+}
 ldir=readdir(dir);
 if (ldir==NULL)kkl=1;
-if (total>7)kkl=1;
+if (total>500)kkl=1;
 }
 closedir(dir);
+ttotal=total;
 }
+
+ static int
+       cmpstringp(const void *p1, const void *p2)
+       {
+           return strcmp(* (char * const *) p1, * (char * const *) p2);
+       }
+
+
+
+
+
+
 
 
 
