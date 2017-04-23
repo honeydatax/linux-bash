@@ -22,6 +22,7 @@ struct timeval start, ends;
 
 
 int main(int argc, char ** argv){
+char h[250];
 char a=0;
 int mm=0;
 int m1=0;
@@ -125,6 +126,18 @@ if(event.key.keysym.sym==SDLK_ESCAPE) a=27;
 }
 else if (event.type==SDL_QUIT){
 a=27;
+}
+if(event.type==SDL_MOUSEMOTION){
+strcpy(h,"X");
+i1=event.motion.x;
+i2=event.motion.y;
+for(i4=600;i4<608;i4++){
+if ((i1>rrr[i4].x)&&(i1<rrr[i4].x+rrr[i4].w)&&(i2>rrr[i4].y)&&(i2<rrr[i4].y+rrr[i4].h)){
+strcpy(h,"DOOR 0");
+h[5]='0'+(i4-600);
+}
+}
+SDL_WM_SetCaption(h,NULL);
 }
 }
 
