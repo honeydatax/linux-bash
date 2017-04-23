@@ -20,6 +20,7 @@ static int cmpstringp(const void *p1, const void *p2);
 
 
 int ttotal;
+char directory[1024];
 char door[500][50]; 
 char *pdoor[500];
 time_t rawtime;
@@ -54,10 +55,10 @@ char *s2;
 int t=0;
 long ll=0;
 int i1=40,i2=40,i3=10,i4=10,i5=0,i6,i7,i8,i9,i10,i11,i12;
-list();
 SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 atexit(SDL_Quit);
 sss=SDL_SetVideoMode(600,300,8,0);
+list();
 rrr[0] = {0 ,0 ,599 ,299 };
 SDL_FillRect(sss,&rrr[0],SDL_MapRGB(sss->format,255,255,255));
 for (i4=1;i4<300;i4++){
@@ -120,7 +121,7 @@ SDL_FillRect(sss,&rrr[607],SDL_MapRGB(sss->format,94,0,0));
 
 SDL_UpdateRects(sss,607,rrr);
 SDL_Flip(sss);
-SDL_WM_SetCaption("X",NULL);
+
 
 cursors=0;
 
@@ -156,12 +157,12 @@ list();
 }
 }
 if(event.type==SDL_MOUSEMOTION){
-strcpy(h,"X");
+strcpy(h,directory);
 i1=event.motion.x;
 i2=event.motion.y;
 for(i4=600;i4<608;i4++){
 if ((i1>rrr[i4].x)&&(i1<rrr[i4].x+rrr[i4].w)&&(i2>rrr[i4].y)&&(i2<rrr[i4].y+rrr[i4].h)){
-strcpy(h,"DOOR>: ");
+strcpy(h," ");
 strcat(h,pdoor[i4-600]);
 }
 }
@@ -205,6 +206,8 @@ if (total>500)kkl=1;
 closedir(dir);
 ttotal=total;
 qsort(&pdoor[1], ttotal-1, sizeof(char *), cmpstringp);
+getcwd(directory,sizeof(directory));
+SDL_WM_SetCaption(directory,NULL);
 }
 
  static int
