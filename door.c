@@ -29,6 +29,7 @@ struct timeval start, ends;
 
 
 int main(){
+int cursors=0;
 char h[250];
 char a=0;
 int mm=0;
@@ -53,12 +54,7 @@ char *s2;
 int t=0;
 long ll=0;
 int i1=40,i2=40,i3=10,i4=10,i5=0,i6,i7,i8,i9,i10,i11,i12;
-for (i1=0;i1<500;i1++){
-door[i1][0]=0;
-pdoor[i1]=&door[i1][0];
-}
 list();
-qsort(&pdoor[1], ttotal-1, sizeof(char *), cmpstringp);
 SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
 atexit(SDL_Quit);
 sss=SDL_SetVideoMode(600,300,8,0);
@@ -126,7 +122,7 @@ SDL_UpdateRects(sss,607,rrr);
 SDL_Flip(sss);
 SDL_WM_SetCaption("X",NULL);
 
-
+cursors=0;
 
 do{
 
@@ -138,6 +134,26 @@ if(event.key.keysym.sym==SDLK_ESCAPE) a=27;
 }
 else if (event.type==SDL_QUIT){
 a=27;
+}
+
+if(event.type==SDL_MOUSEBUTTONUP){
+if(event.button.button == SDL_BUTTON_LEFT){
+cursors=0;
+}}
+if(event.type==SDL_MOUSEBUTTONDOWN){
+if(event.button.button == SDL_BUTTON_LEFT){
+if (cursors!=1){
+i1=event.motion.x;
+i2=event.motion.y;
+for(i4=600;i4<608;i4++){
+if ((i1>rrr[i4].x)&&(i1<rrr[i4].x+rrr[i4].w)&&(i2>rrr[i4].y)&&(i2<rrr[i4].y+rrr[i4].h)){
+cursors=1;
+chdir (pdoor[i4-600]);
+list();
+}
+}
+} 
+}
 }
 if(event.type==SDL_MOUSEMOTION){
 strcpy(h,"X");
@@ -162,17 +178,24 @@ return 0;
 }
 
 void list(){
+int i1=0;
 int total=0;
 int kkl=0;
+for (i1=0;i1<500;i1++){
+door[i1][0]=0;
+pdoor[i1]=&door[i1][0];
+}
+
+
 DIR *dir=opendir(ddir);
 struct dirent *ldir;
-strcpy(door[total],"/..");
+strcpy(door[total],"..");
 total++;
 ldir=readdir(dir);
 if (ldir==NULL)kkl=1;
 while(kkl!=1){
-if (ldir->d_type==DT_DIR){
 strcpy(door[total],ldir->d_name);
+if (ldir->d_type==DT_DIR && door[total][0]!='.'){
 total++;
 }
 ldir=readdir(dir);
@@ -181,6 +204,7 @@ if (total>500)kkl=1;
 }
 closedir(dir);
 ttotal=total;
+qsort(&pdoor[1], ttotal-1, sizeof(char *), cmpstringp);
 }
 
  static int
