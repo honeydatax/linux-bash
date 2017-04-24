@@ -13,13 +13,13 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
-#define ddir ".\0"
 
 void list();
 static int cmpstringp(const void *p1, const void *p2);
 
 
-int ttotal;
+int ttotal=0;
+int attotal=0;
 char directory[1024];
 char door[500][50]; 
 char *pdoor[500];
@@ -151,8 +151,8 @@ if (cursors==0 && cursors2==0 ){
 if(event.type==SDL_MOUSEBUTTONDOWN){
 if(event.button.button == SDL_BUTTON_RIGHT){
 cursors2=1;
-ppdor=+7;
-if (ppdor+7>ttotal)ppdor=ttotal-7;
+ppdor=ppdor+7;
+if (ppdor+7>ttotal+attotal)ppdor=ttotal+attotal-7;
 if (ppdor<0)ppdor=0;
 SDL_WM_SetCaption("moved to front...",NULL);
 }
@@ -202,12 +202,11 @@ door[i1][0]=0;
 pdoor[i1]=&door[i1][0];
 }
 
-
-DIR *dir=opendir(ddir);
 struct dirent *ldir;
+struct dirent *ldir2;
 getcwd(directory,sizeof(directory));
 SDL_WM_SetCaption(directory,NULL);
-
+DIR *dir=opendir(directory);
 ldir=readdir(dir);
 if (ldir==NULL)kkl=1;
 while(kkl!=1){
@@ -222,6 +221,23 @@ if (total>500)kkl=1;
 closedir(dir);
 ttotal=total;
 qsort(&pdoor[0], ttotal, sizeof(char *), cmpstringp);
+kkl=0;
+DIR *dir2=opendir(directory);
+ldir2=readdir(dir2);
+if (ldir2==NULL)kkl=1;
+while(kkl!=1){
+strcpy(door[total],ldir2->d_name);
+if (ldir2->d_type!=DT_DIR && door[total][0]!='.'){
+total++;
+}
+ldir2=readdir(dir2);
+if (ldir2==NULL)kkl=1;
+if (total>500)kkl=1;
+}
+closedir(dir2);
+attotal=total-ttotal;
+if (attotal<0)attotal=0; 
+qsort(&pdoor[ttotal], attotal, sizeof(char *), cmpstringp);
 }
 
  static int
