@@ -141,20 +141,21 @@ if(event.type==SDL_MOUSEBUTTONUP){
 if(event.button.button == SDL_BUTTON_LEFT){
 cursors=0;
 }}
+
+if (cursors==0){
 if(event.type==SDL_MOUSEBUTTONDOWN){
+cursors=1;
 if(event.button.button == SDL_BUTTON_LEFT){
-if (cursors!=1){
 i1=event.motion.x;
 i2=event.motion.y;
 for(i4=600;i4<608;i4++){
 if ((i1>rrr[i4].x)&&(i1<rrr[i4].x+rrr[i4].w)&&(i2>rrr[i4].y)&&(i2<rrr[i4].y+rrr[i4].h)){
-cursors=1;
 chdir (pdoor[i4-600]);
 list();
+usleep(900000);
 }
 }
 } 
-}
 }
 if(event.type==SDL_MOUSEMOTION){
 strcpy(h,directory);
@@ -169,7 +170,7 @@ strcat(h,pdoor[i4-600]);
 SDL_WM_SetCaption(h,NULL);
 }
 }
-
+}
 
 if (a==27)i1=1;
 }while(i1!=1);
@@ -190,6 +191,8 @@ pdoor[i1]=&door[i1][0];
 
 DIR *dir=opendir(ddir);
 struct dirent *ldir;
+getcwd(directory,sizeof(directory));
+SDL_WM_SetCaption(directory,NULL);
 strcpy(door[total],"..");
 total++;
 ldir=readdir(dir);
@@ -206,8 +209,6 @@ if (total>500)kkl=1;
 closedir(dir);
 ttotal=total;
 qsort(&pdoor[1], ttotal-1, sizeof(char *), cmpstringp);
-getcwd(directory,sizeof(directory));
-SDL_WM_SetCaption(directory,NULL);
 }
 
  static int
