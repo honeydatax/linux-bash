@@ -30,6 +30,8 @@ struct timeval start, ends;
 
 
 int main(){
+int cursors2=0;
+int ppdor=0;
 int cursors=0;
 char h[250];
 char a=0;
@@ -138,20 +140,32 @@ a=27;
 }
 
 if(event.type==SDL_MOUSEBUTTONUP){
+if(event.button.button == SDL_BUTTON_RIGHT){
+cursors2=0;
+}
 if(event.button.button == SDL_BUTTON_LEFT){
 cursors=0;
 }}
 
-if (cursors==0){
+if (cursors==0 && cursors2==0 ){
 if(event.type==SDL_MOUSEBUTTONDOWN){
-cursors=1;
+if(event.button.button == SDL_BUTTON_RIGHT){
+cursors2=1;
+ppdor=+7;
+if (ppdor+7>ttotal)ppdor=ttotal-7;
+if (ppdor<0)ppdor=0;
+SDL_WM_SetCaption("moved to front...",NULL);
+}
 if(event.button.button == SDL_BUTTON_LEFT){
+cursors=1;
 i1=event.motion.x;
 i2=event.motion.y;
 for(i4=600;i4<608;i4++){
 if ((i1>rrr[i4].x)&&(i1<rrr[i4].x+rrr[i4].w)&&(i2>rrr[i4].y)&&(i2<rrr[i4].y+rrr[i4].h)){
-chdir (pdoor[i4-600]);
+if (i4-600==0) chdir ("..");
+else chdir (pdoor[i4-601+ppdor]);
 list();
+ppdor=0;
 usleep(900000);
 }
 }
@@ -163,8 +177,8 @@ i1=event.motion.x;
 i2=event.motion.y;
 for(i4=600;i4<608;i4++){
 if ((i1>rrr[i4].x)&&(i1<rrr[i4].x+rrr[i4].w)&&(i2>rrr[i4].y)&&(i2<rrr[i4].y+rrr[i4].h)){
-strcpy(h," ");
-strcat(h,pdoor[i4-600]);
+if (i4-600==0) strcpy(h,"..");
+else strcpy(h,pdoor[i4-601+ppdor]);
 }
 }
 SDL_WM_SetCaption(h,NULL);
@@ -193,8 +207,7 @@ DIR *dir=opendir(ddir);
 struct dirent *ldir;
 getcwd(directory,sizeof(directory));
 SDL_WM_SetCaption(directory,NULL);
-strcpy(door[total],"..");
-total++;
+
 ldir=readdir(dir);
 if (ldir==NULL)kkl=1;
 while(kkl!=1){
@@ -208,7 +221,7 @@ if (total>500)kkl=1;
 }
 closedir(dir);
 ttotal=total;
-qsort(&pdoor[1], ttotal-1, sizeof(char *), cmpstringp);
+qsort(&pdoor[0], ttotal, sizeof(char *), cmpstringp);
 }
 
  static int
