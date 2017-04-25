@@ -23,11 +23,11 @@ int i1=40,i2=40,i3=10,i4=10,i5=0,i6,i7,i8,i9,i10,i11,i12;
 
 startX();
 hline(50,50,550,0);
-hline(50,100,550,0);
-vline(50,50,100,0);
-vline(550,50,100,0);
-lineRight(50,50,549,100,0);
-lineLeft(50,100,549,50,0);
+hline(50,100,550,MAGENTA);
+vline(50,50,100,BLUE);
+vline(550,50,100,GREEN);
+lineRight(50,50,549,100,BROWN);
+lineLeft(50,100,549,50,RED);
 char cx[1024];
 char *kll;
 kll=cx;

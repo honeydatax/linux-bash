@@ -13,7 +13,29 @@
 #include <sys/stat.h>
 SDL_Surface *s;
 SDL_Rect rect[1];
+
 #define FONTDATAMAX 2048
+
+ 
+#define BLACK         0
+#define BLUE          3
+#define GREEN         28
+#define CYAN          31
+#define RED           224
+#define MAGENTA       227
+#define BROWN         136
+#define LIGHTGRAY     219
+#define DARKGRAY      73
+#define LIGHTBLUE     143
+#define LIGHTGREEN    158
+#define LIGHTCYAN     191
+#define LIGHTRED      237
+#define LIGHTMAGENTA  247
+#define YELLOW        252
+#define WHITE         255
+
+
+
 void verputs(int x,int y,char color,char *c);
 void gputs(int x,int y,char color,char *c);
 void ppixel(int x,int y,char color);
@@ -2850,7 +2872,7 @@ c=0;
 c2=0;
 for(i5=0;i5<i1;i5++){
 Uint8 *p=(Uint8*)s->pixels+(yyy)*s->pitch+(xx+i5);
-*(Uint8 *)p=color;
+*p=color;
 
 c2++;
 c++;
@@ -2877,7 +2899,7 @@ c=0;
 c2=0;
 for(i5=0;i5<i2;i5++){
 Uint8 *p=(Uint8*)s->pixels+(yyy-i5)*s->pitch+(xx);
-*(Uint8 *)p=color;
+*p=color;
 
 c2++;
 c++;
