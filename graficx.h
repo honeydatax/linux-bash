@@ -24,6 +24,11 @@ void startX();
 void caption(char *c);
 int doEvents();
 void refresh();
+void lineRight(int x,int y,int x2,int y2,char color);
+void lineLeft(int x,int y,int x2,int y2,char color);
+int iidiv(int a,int b);
+
+
 unsigned char font8x8[FONTDATAMAX] = {
 
         /* 0 0x00 '^@' */
@@ -2676,7 +2681,7 @@ int ii=0;
 int xx=x;
 int yy=y;
 while(c[ii]!=0){
-gputc(xx,yy,0,c[ii]);
+gputc(xx,yy,color,c[ii]);
 yy=yy+8;
 ii++;
 }
@@ -2714,6 +2719,183 @@ return a;
 
 void refresh(){
 SDL_Flip(s);
+}
+
+void lineRight(int x,int y,int x2,int y2,char color){
+int i4=0;
+int xx=x;
+int yy=y;
+int xxx=x2;
+int yyy=y2;
+int c=0;
+int c2=0;
+if (xx>xxx){
+i4=xxx;
+xxx=xx;
+xx=i4;
+}
+if (yy>yyy){
+i4=yyy;
+yyy=yy;
+yy=i4;
+}
+
+int i1=xxx-xx;
+int i2=yyy-yy;
+int i3;
+int i5;
+int i6;
+int i8;
+int b=0;
+if (i1>i2){
+i3=iidiv(i1,i2);
+if(i3==0)i3=1;
+i8=i1-i3*i2;
+i6=iidiv(i1,i8);
+i6=i1;
+if (i8!=0) i6=iidiv(i1,i8);
+i6=i1;
+c=0;
+c2=0;
+for(i5=0;i5<i1;i5++){
+Uint8 *p=(Uint8*)s->pixels+(yy)*s->pitch+(xx+i5);
+*(Uint8 *)p=color;
+
+c2++;
+c++;
+if (c2>i3){
+c2=0;
+yy++;
+}
+
+if (c>i6){
+c=0;
+yy++;
+}
+}
+}else{
+
+i3=iidiv(i2,i1);
+if(i3==0)i3=1;
+i8=i2-i3*i1;
+i6=iidiv(i2,i8);
+i6=i2;
+if (i8!=0) i6=iidiv(i2,i8);
+i6=i2;
+c=0;
+c2=0;
+for(i5=0;i5<i2;i5++){
+Uint8 *p=(Uint8*)s->pixels+(yy+i5)*s->pitch+(xx);
+*(Uint8 *)p=color;
+
+c2++;
+c++;
+if (c2>=i3){
+c2=0;
+xx++;
+}
+
+if (c>=i6){
+c=0;
+xx++;
+}
+}
+
+
+
+}
+
+}
+
+int iidiv(int a,int b){
+if(b==0)return 0;
+return (int)a/b;
+}
+
+void lineLeft(int x,int y,int x2,int y2,char color){
+int i4=0;
+int xx=x;
+int yy=y;
+int xxx=x2;
+int yyy=y2;
+int c=0;
+int c2=0;
+if (xx>xxx){
+i4=xxx;
+xxx=xx;
+xx=i4;
+}
+if (yy>yyy){
+i4=yyy;
+yyy=yy;
+yy=i4;
+}
+
+int i1=xxx-xx;
+int i2=yyy-yy;
+int i3;
+int i5;
+int i6;
+int i8;
+int b=0;
+if (i1>i2){
+i3=iidiv(i1,i2);
+if(i3==0)i3=1;
+i8=i1-i3*i2;
+i6=iidiv(i1,i8);
+i6=i1;
+if (i8!=0) i6=iidiv(i1,i8);
+i6=i1;
+c=0;
+c2=0;
+for(i5=0;i5<i1;i5++){
+Uint8 *p=(Uint8*)s->pixels+(yyy)*s->pitch+(xx+i5);
+*(Uint8 *)p=color;
+
+c2++;
+c++;
+if (c2>i3){
+c2=0;
+yyy--;
+}
+
+if (c>i6){
+c=0;
+yyy--;
+}
+}
+}else{
+
+i3=iidiv(i2,i1);
+if(i3==0)i3=1;
+i8=i2-i3*i1;
+i6=iidiv(i2,i8);
+i6=i2;
+if (i8!=0) i6=iidiv(i2,i8);
+i6=i2;
+c=0;
+c2=0;
+for(i5=0;i5<i2;i5++){
+Uint8 *p=(Uint8*)s->pixels+(yyy-i5)*s->pitch+(xx);
+*(Uint8 *)p=color;
+
+c2++;
+c++;
+if (c2>=i3){
+c2=0;
+xx++;
+}
+
+if (c>=i6){
+c=0;
+xx++;
+}
+}
+
+
+
+}
+
 }
 
 
