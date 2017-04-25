@@ -11,17 +11,19 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-
-
+SDL_Surface *s;
+SDL_Rect rect[1];
 #define FONTDATAMAX 2048
-void verputs(SDL_Surface *s,int x,int y,char color,char *c);
-void gputs(SDL_Surface *s,int x,int y,char color,char *c);
-void ppixel(SDL_Surface *s,int x,int y,char color);
-void hline(SDL_Surface *s,int x,int y,int x2,char color);
-void vline(SDL_Surface *s,int x,int y,int y2,char color);
-void gputc(SDL_Surface *s,int x,int y,char color,char c);
-
-
+void verputs(int x,int y,char color,char *c);
+void gputs(int x,int y,char color,char *c);
+void ppixel(int x,int y,char color);
+void hline(int x,int y,int x2,char color);
+void vline(int x,int y,int y2,char color);
+void gputc(int x,int y,char color,char c);
+void startX();
+void caption(char *c);
+int doEvents();
+void refresh();
 unsigned char font8x8[FONTDATAMAX] = {
 
         /* 0 0x00 '^@' */
@@ -2592,13 +2594,13 @@ unsigned char font8x8[FONTDATAMAX] = {
 
 
 
-void ppixel(SDL_Surface *s,int x,int y,char color){
+void ppixel(int x,int y,char color){
 Uint8 *p=(Uint8*)s->pixels+y*s->pitch+x;
 *(Uint8 *)p=color;
 } 
 
 
-void hline(SDL_Surface *s,int x,int y,int x2,char color){
+void hline(int x,int y,int x2,char color){
 int f;
 int xx1=x;
 int xx2=x2;
@@ -2614,7 +2616,7 @@ Uint8 *p=(Uint8*)s->pixels+y*s->pitch+f;
 
 } 
 
-void vline(SDL_Surface *s,int x,int y,int y2,char color){
+void vline(int x,int y,int y2,char color){
 int f;
 int yy1=y;
 int yy2=y2;
@@ -2630,18 +2632,18 @@ Uint8 *p=(Uint8*)s->pixels+f*s->pitch+x;
 
 } 
 
-void gputs(SDL_Surface *s,int x,int y,char color,char *c){
+void gputs(int x,int y,char color,char *c){
 int ii=0;
 int xx=x;
 int yy=y;
 while(c[ii]!=0){
-gputc(s,xx,yy,0,c[ii]);
+gputc(xx,yy,0,c[ii]);
 xx=xx+8;
 ii++;
 }
 }
 
-void gputc(SDL_Surface *s,int x,int y,char color,char c){
+void gputc(int x,int y,char color,char c){
 char bits;
 char bit;
 int scrolls;
@@ -2669,16 +2671,63 @@ yy++;
 
 } 
 
-void verputs(SDL_Surface *s,int x,int y,char color,char *c){
+void verputs(int x,int y,char color,char *c){
 int ii=0;
 int xx=x;
 int yy=y;
 while(c[ii]!=0){
-gputc(s,xx,yy,0,c[ii]);
+gputc(xx,yy,0,c[ii]);
 yy=yy+8;
 ii++;
 }
 }
+
+void startX(){
+SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
+atexit(SDL_Quit);
+s=SDL_SetVideoMode(600,350,8,0);
+rect[0]= {0 ,0 ,600 , 350};
+SDL_FillRect(s,&rect[0],SDL_MapRGB(s->format,255,255,255));
+SDL_UpdateRects(s,1,rect);
+SDL_Flip(s);
+}
+
+void caption(char *c){
+SDL_WM_SetCaption(c,NULL);
+}
+
+
+int doEvents(){
+SDL_Event event;
+int a=0;
+if(SDL_PollEvent(&event)){
+if(event.type==SDL_KEYDOWN){
+if(event.key.keysym.sym==SDLK_ESCAPE) a=27; 
+
+}
+else if (event.type==SDL_QUIT){
+a=27;
+}
+}
+return a;
+}
+
+void refresh(){
+SDL_Flip(s);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
