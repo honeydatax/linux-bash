@@ -34,8 +34,12 @@ SDL_Rect rect[1];
 #define YELLOW        252
 #define WHITE         255
 
-
-
+void LOOPS();
+void drawx(int x,int y,int r,char color);
+void ball(int x,int y,int r,char color);
+void clear();
+void cls(char color);
+void box(int x,int y,int x2,int y2,char color);
 void verputs(int x,int y,char color,char *c);
 void gputs(int x,int y,char color,char *c);
 void ppixel(int x,int y,char color);
@@ -2664,7 +2668,7 @@ int ii=0;
 int xx=x;
 int yy=y;
 while(c[ii]!=0){
-gputc(xx,yy,0,c[ii]);
+gputc(xx,yy,color,c[ii]);
 xx=xx+8;
 ii++;
 }
@@ -2920,21 +2924,64 @@ xx++;
 
 }
 
+void boxs(int x,int y,int x2,int y2,char color){
+int i=0;
+for (i=y;i<y2;i++)hline(x,i,x2,color);
+}
+
+void cls(char color){
+boxs(0,0,600,350,color);
+}
+
+void clear(){
+cls(WHITE);
+}
 
 
+void drawx(int x,int y,int r,char color){
+int size=r*2;
+int usize=size*100/150;
+int ausize=usize/2;
+int xx=x-ausize;
+int xxx=x-r;
+int yy=y-r;
+int yyy=y-ausize;
+boxs(xx,yy,xx+usize,yy+size,color);
+boxs(xxx,yyy,xxx+size,yyy+usize,color);
+}
 
 
+void ball(int x,int y,int r,char color){
+int i=0;
+int size=r*2;
+int usize=size/12;
+int uusize=((size)*100-usize*100)/r;
+int musize=usize*100;
+int tuusize=uusize;
+int ausize=usize/2;
+int xx=x-usize;
+int xxx=x+usize;
+int yy=y-r;
+for (i=yy;i<size+yy;i++){
+if(i==y)uusize=-uusize;
+hline(xx-musize/100,i,xxx+musize/100,color);
+if(i<y-size/8 || i>y+size/8)musize=musize+uusize/2;
+}
+
+}
+
+void LOOPS(){
+int a=0;
+int i1=0;
+
+do{
+a=doEvents();
+i1=0;
+if (a==27)i1=1;
+}while(i1!=1);
 
 
-
-
-
-
-
-
-
-
-
+}
 
 
 
