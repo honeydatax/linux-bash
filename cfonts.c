@@ -22,29 +22,29 @@ long ll=0;
 int i1=40,i2=40,i3=10,i4=10,i5=0,i6,i7,i8,i9,i10,i11,i12;
 
 startX();
-hline(50,50,550,0);
-hline(50,100,550,0);
-vline(50,50,100,0);
-vline(550,50,100,0);
 char cx[1024];
 char *kll;
 kll=cx;
 strcpy(cx,"im love marina.\0");
-gputs(75,75,0,kll);
-verputs(10,10,0,kll);
+gputs(75,150,RED,kll);
+verputs(10,10,BLUE,kll);
+boxs(175,50,250,100,YELLOW);
+boxs(75,50,150,100,YELLOW);
+for(i1=80;i1<151;i1=i1+10){
+line(75,50,i1,100,0);
+}
+for(i1=175;i1<251;i1=i1+10){
+line(175,100,i1,50,0);
+}
+
+rectangle(275,50,310,100,RED);
+
 refresh();
 caption(kll);
 
 
 
-do{
-
-
-a=doEvents();
-i1=0;
-if (a==27)i1=1;
-}while(i1!=1);
-
+LOOPS();
 
 return 0;
 }

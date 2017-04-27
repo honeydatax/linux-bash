@@ -53,6 +53,11 @@ void refresh();
 void lineRight(int x,int y,int x2,int y2,char color);
 void lineLeft(int x,int y,int x2,int y2,char color);
 int iidiv(int a,int b);
+void circle(int x,int y,int r,char color);
+void lineR(int x,int y,int x2,int y2,char color);
+void lineL(int x,int y,int x2,int y2,char color);
+void line(int x,int y,int x2,int y2,char color);
+void rectangle(int x,int y,int x2,int y2,char color);
 
 
 unsigned char font8x8[FONTDATAMAX] = {
@@ -2970,6 +2975,33 @@ if(i<y-size/8 || i>y+size/8)musize=musize+uusize/2;
 
 }
 
+
+void circle(int x,int y,int r,char color){
+int i=0;
+int size=r*2;
+int usize=size/12;
+int uusize=((size)*100-usize*100)/r;
+int musize=usize*100;
+int tuusize=uusize;
+int ausize=usize/2;
+int xx=x-usize;
+int xxx=x+usize;
+int yy=y-r;
+for (i=yy;i<size+yy;i++){
+if(i==y)uusize=-uusize;
+if (i==yy ||i==size+yy-1)hline(xx-musize/100,i,xxx+musize/100,color);
+else {
+ppixel(xx-musize/100,i,color);
+ppixel(xxx+musize/100,i,color);
+}
+if(i<y-size/8 || i>y+size/8)musize=musize+uusize/2;
+}
+
+}
+
+
+
+
 void LOOPS(){
 int a=0;
 int i1=0;
@@ -2983,6 +3015,155 @@ if (a==27)i1=1;
 
 }
 
+
+void lineR(int x,int y,int x2,int y2,char color){
+long l1=0,l2=0,l3=0,l4=0,l5=0;
+int i4=0;
+int xx=x;
+int yy=y;
+int xxx=x2;
+int yyy=y2;
+int c=0;
+int c2=0;
+if (xx>xxx){
+i4=xxx;
+xxx=xx;
+xx=i4;
+}
+if (yy>yyy){
+i4=yyy;
+yyy=yy;
+yy=i4;
+}
+
+int i1=xxx-xx;
+int i2=yyy-yy;
+int i3;
+int i5;
+int i6;
+int i8;
+int b=0;
+int ty=0;
+if (i1>i2){
+l1=(long)i1;
+l2=(long)i2;
+if(l1==0){
+l1=1;};
+l4=(l2*10000/l1);
+l3=0;
+i6=0;
+c=0;
+c2=0;
+for(i5=0;i5<i1+1;i5++){
+l5=l3/10000;
+i3=(int)l5;
+Uint8 *p=(Uint8*)s->pixels+(y+(i3))*s->pitch+(xx+i5);
+*(Uint8 *)p=color;
+l3=l3+l4;
+}
+}else{
+l1=(long)i1;
+l2=(long)i2;
+if(l2==0){
+l2=1;};
+l4=(l1*10000/l2);
+l3=0;
+i6=0;
+c=0;
+c2=0;
+for(i5=0;i5<i2+1;i5++){
+l5=l3/10000;
+i3=(int)l5;
+Uint8 *p=(Uint8*)s->pixels+(yy+i5)*s->pitch+(xx+i3);
+*(Uint8 *)p=color;
+l3=l3+l4;
+}
+} 
+}
+
+void lineL(int x,int y,int x2,int y2,char color){
+long l1=0,l2=0,l3=0,l4=0,l5=0;
+int i4=0;
+int xx=x;
+int yy=y;
+int xxx=x2;
+int yyy=y2;
+int c=0;
+int c2=0;
+if (xx>xxx){
+i4=xxx;
+xxx=xx;
+xx=i4;
+}
+if (yy<yyy){
+i4=yyy;
+yyy=yy;
+yy=i4;
+}
+
+int i1=xxx-xx;
+int i2=yy-yyy;
+int i3;
+int i5;
+int i6;
+int i8;
+int b=0;
+int ty=0;
+if (i1>i2){
+l1=(long)i1;
+l2=(long)i2;
+if(l1==0){
+l1=1;};
+l4=(l2*10000/l1);
+l3=0;
+i6=0;
+c=0;
+c2=0;
+for(i5=0;i5<i1+1;i5++){
+l5=l3/10000;
+i3=(int)l5;
+Uint8 *p=(Uint8*)s->pixels+(y-(i3))*s->pitch+(xx+i5);
+*(Uint8 *)p=color;
+l3=l3+l4;
+}
+}else{
+l1=(long)i1;
+l2=(long)i2;
+if(l2==0){
+l2=1;};
+l4=(l1*10000/l2);
+l3=0;
+i6=0;
+c=0;
+c2=0;
+for(i5=0;i5<i2+1;i5++){
+l5=l3/10000;
+i3=(int)l5;
+Uint8 *p=(Uint8*)s->pixels+(yy-i5)*s->pitch+(xx+i3);
+*(Uint8 *)p=color;
+l3=l3+l4;
+}
+} 
+}
+
+void line(int x,int y,int x2,int y2,char color){
+int i=-1;
+if(x<x2 && y<y2)i=3;
+if(x<x2 && y>y2)i=2;
+if(y==y2)i=0;
+if(x==x2)i=1;
+if (i==0)hline(x,y,x2,color);
+if (i==1)vline(x,y,y2,color);
+if (i==2)lineL(x,y,x2,y2,color);
+if (i==3)lineR(x,y,x2,y2,color);
+}
+
+void rectangle(int x,int y,int x2,int y2,char color){
+line(x,y,x2,y,color);
+line(x,y2,x2,y2,color);
+line(x,y,x,y2,color);
+line(x2,y,x2,y2,color);
+}
 
 
 
