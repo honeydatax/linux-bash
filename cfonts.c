@@ -30,6 +30,16 @@ gputs(75,150,RED,kll);
 verputs(10,10,BLUE,kll);
 boxs(175,50,250,100,YELLOW);
 boxs(75,50,150,100,YELLOW);
+boxs(320,50,395,100,YELLOW);
+boxs(420,50,495,100,YELLOW);
+boxs(420+36,74,495-36,76,RED);
+line(420+37,75,495,50,RED);
+line(420+37,75,495,100,GREEN);
+line(420+37,75,420,100,BLUE);
+line(420+37,75,420,50,DARKGRAY);
+line(395,100,320,50,0);
+line(395,50,320,100,0);
+
 for(i1=80;i1<151;i1=i1+10){
 line(75,50,i1,100,0);
 }
