@@ -36,7 +36,7 @@ setbcolor(7);
 setcolor(0);
 for (ddd=1.0;ddd<13.0;ddd++){
 dd=10.0-10.0*(cos)(ddd/6*pi);
-d=40.0+10.0*(sin)(ddd/6*pi);
+d=40.0+15.0*(sin)(ddd/6*pi);
 bc=(int)ddd;
 x=(int)d;
 y=(int)dd;
@@ -44,6 +44,7 @@ gotoxy(x,y);
 printf("%d",bc); 
 }
 gotoxy(1,1);
+usleep(8000000);
 return 0;
 }
 
