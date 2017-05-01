@@ -1,3 +1,3 @@
-dialog --calendar 'calender'  0 0 2> tdate.txt
+a=$(zenity --calendar --title="day of my start love" )
 clear
-cat tdate.txt
+printf "\n%s\n" "$a"
