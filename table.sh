@@ -23,7 +23,7 @@ while :
 do
 printf "newpath\n" >> ps.ps
 printf "0 %d moveto\n" "$x" >> ps.ps
-printf "500 %d lineto\n" "$x" >> ps.ps
+printf "700 %d lineto\n" "$x" >> ps.ps
 printf "1 setlinewidth\n" >> ps.ps
 printf "stroke\n" >> ps.ps
 x=$(( x + f ))
@@ -57,9 +57,9 @@ done
 
 
 
-t="25"
 z="-10"
-x="800";
+x="775"
+t="$x"
 clear
 while :
 do
@@ -67,7 +67,7 @@ printf "/Times-Roman findfont\n" >> ps.ps
 printf "16 scalefont\n"  >> ps.ps
 printf "setfont\n" >> ps.ps
 printf "newpath\n" >> ps.ps
-printf "10 %d moveto" "$t" >> ps.ps
+printf "2 %d moveto" "$t" >> ps.ps
 #printf "%d\n" "$z"
 printf "(%d) show\n"  "$z" >> ps.ps
 z=$(( z + 1 ))
