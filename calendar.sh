@@ -1,11 +1,26 @@
 #! /bin/bash
-
-clear 
-printf '\e[1;32m'
 clear
+cal -y > cal.txt
+tr "_" " " < cal.txt > calender.txt
+a=$(zenity --text-info --title="calandar.sh" --font="monospace" --filename="calender.txt" --width="600" --height="350") 
 
-cal -y
 
-printf '\e[m'
 
-read nnull
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
