@@ -3,22 +3,18 @@
 clear
 ctrc="";
 
-printf "press crt-c to exit:\n"
 stty -icanon min 0 time 0
 while : 
 do 
 theClock=$(date)
-printf "%s " $theClock
+dialog --title "clock..." --infobox "$theClock" 0 0
 sleep 1
-printf "\r" 
 read ctrc
 if [ "$ctrc" != "" ];
 then break
 fi 
 done
 stty -g
-read nnull 
-clear
 
 
 
