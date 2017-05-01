@@ -1,9 +1,29 @@
 #! /usr/bin/bash
 
-dialog --title "select file" --fselect "" 0 0 2> fileselect.txt
 
-clear 
 
-a=$(cat fileselect.txt)
+
+a=$(zenity --file-selection --title="files" )
+
+clear
+
+
 
 printf "\n%s\n" "$a"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
