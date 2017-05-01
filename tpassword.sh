@@ -1,9 +1,9 @@
 #! /usr/bin/bash
 
-dialog --title "enter password?" --passwordbox "you lave is?"  0 0 2> password.txt
+a=$(zenity --password --title="you lave is?" --username="marina")  
 
 clear 
 
-a=$(cat password.txt)
+
 
 printf "\n%s\n" "$a"
