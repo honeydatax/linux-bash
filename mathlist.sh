@@ -7,15 +7,14 @@ printf "" > list.txt
 while :
 do
 ipt="X$xx?"
-dialog --title "list X" --inputbox "$ipt" 0 0 2> x.txt
-xxx=$(cat x.txt)
+xxx=$(zenity --entry --title "list X" --text="$ipt")
 if [ "$xxx" == "" ]
 then
 break
 fi
 ipt="Y$yy?"
-dialog --title "list Y" --inputbox "$ipt" 0 0 2> y.txt
-yyy=$(cat y.txt)
+yyy=$(zenity --entry --title "list Y" --text="$ipt")
+
 if [ "$yyy" == "" ]
 then
 break
@@ -43,8 +42,7 @@ yy=$(( yy + 1 ))
 done 
 
 printf "\n" >> tail.txt
-
-dialog  --title "list" --tailbox tail.txt 0 0 
+cat tail.txt | zenity  --text-info --title "list XY" --width 575 
 
 clear
 
