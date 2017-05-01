@@ -1,10 +1,25 @@
-#! /usr/bin/bash
+#!/bin/bash
 
 
-dialog --title "client" --inputbox "client name?" 0 0 2> input.txt
+a=$(zenity --entry --title "you love is?" --text "love name?" )
 
 clear
 
-a=$(cat input.txt)
 
 printf "\n%s\n" "$a"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
