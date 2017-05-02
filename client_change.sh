@@ -1,83 +1,70 @@
-#!/bin/sh
+#!/bin/bash
 
-clear 
-printf "name to find:?" 
-read toFind
+
+exits(){
+if [ "$1" = "1" ]
+then 
+exit
+fi
+}
+
+save(){
+printf "%s " "$2" >> "$1"
+printf ":" >> "$1"
+printf "%10s " "$3" >> "$1"
+printf ":" >> "$1"
+printf "%s " "$4" >> "$1"
+printf "\n" >> "$1"
+
+}
+
+reset(){
+printf "" > "$1"
+
+}
+
+
+toFind=$(zenity --entry --title="name to find:?")
+exits $?
 printf "%s" $toFind > clientfinder.txt
-fgrep -f clientfinder.txt client.txt
+fgrep -f clientfinder.txt client.txt > clientf.txt
+zenity --text-info --title="name to find:?" --filename="clientf.txt"
+exits $?
 
-printf "change client y:?" 
-read toFind
-if [ "$toFind" = "n" ] ;
-then exit
-fi
-if [ "$toFind" = "N" ] ;
-then exit
-fi
-printf "client id to change:?" 
-read toFind
-printf "%s" " $toFind :" > clientfinder.txt
-fgrep -f clientfinder.txt client.txt
-printf "change client y:?" 
-read toFinds
-if [ "$toFinds" = "n" ] ;
-then exit
-fi 
 
-if [ "$toFinds" = "N" ] ;
-then exit
-fi
+toFind=$(zenity --entry --title="id client to find:?")
+exits $?
+printf "%s" $toFind > clientfinder.txt
+fgrep -f clientfinder.txt client.txt > clientf.txt
+a=$(cat clientf.txt)
+b="change name client:? " "$a"
+zenity ---question --title="$b" --filename="clientf.txt"
+exits $?
 
-printf ". $toFind :.\n"
 grep -i -v " $toFind :"  client.txt > clientdelete.txt
 
-
-printf "client change:\n" 
-printf "$toFind" 
-
-rm client.txt
+sudo rm client.txt
 
 cp clientdelete.txt client.txt
 
-chmod 777 client.txt
+chmod 666 client.txt
 
 clientId="$toFind"
-printf "client name:?%s" " "
-read clientName
-printf "client address:?%s" " "
-read clientaddress
-chr=:;
 
-printf "append client y:?" 
-read toFind
-if [ "$toFind" = "n" ] ;
-then exit
-fi
-if [ "$toFind" = "N" ] ;
-then exit
-fi
+clientName=$(zenity --entry --title="client name:?")
+exits $?
+clientaddress=$(zenity --entry --title="client address:?")
+exits $?
 
+reset "clients.txt"
 
+save "clients.txt" "$clientId" "$clientName" "$clientaddress"
 
+zenity --text-info --title="client entry" --filename="clients.txt" 
+exits $?
 
-clear
-printf "%s " $clientId
-printf "%s\n" 
-printf "%s " $clientName
-printf "%s\n" 
-printf "%s " $clientaddress
-printf "%s\n" ""
-
-printf "%s " $clientName >> client.txt
-printf "%s" $chr >> client.txt
-printf "%10s " $clientId >> client.txt
-printf "%s" $chr >> client.txt
-printf "%s " $clientaddress >> client.txt
-printf "%s\n" "" >> client.txt
-
+save "client.txt" "$clientId" "$clientName" "$clientaddress"
  
-read nulln
-
 
 
 
