@@ -1,4 +1,7 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-echo "$PATH"
+echo "$PATH" > out.txt
+
+zenity --text-info --title="system path" --filename="out.txt"
+
 
