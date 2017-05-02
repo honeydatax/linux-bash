@@ -1,30 +1,58 @@
 #!/bin/sh
 
-printf "client id:?%s" " "
-read clientId
-printf "client name:?%s" " "
-read clientName
-printf "client address:?%s" " "
-read clientaddress
-chr=:;
+exits(){
+if [ "$1" = "1" ]
+then 
+exit
+fi
+}
 
-clear
-printf "%s " $clientId
-printf "%s\n" 
-printf "%s " $clientName
-printf "%s\n" 
-printf "%s " $clientaddress
-printf "%s\n" ""
+save(){
+printf "%s " "$2" >> "$1"
+printf ":" >> "$1"
+printf "%10s " "$3" >> "$1"
+printf ":" >> "$1"
+printf "%s " "$4" >> "$1"
+printf "\n" >> "$1"
 
-printf "%s " $clientName >> client.txt
-printf "%s" $chr >> client.txt
-printf "%10s " $clientId >> client.txt
-printf "%s" $chr >> client.txt
-printf "%s " $clientaddress >> client.txt
-printf "%s\n" "" >> client.txt
+}
 
+reset(){
+printf "" > "$1"
+
+}
+
+
+clientId=$(zenity --entry --title="client id:?")
+exits $?
+clientName=$(zenity --entry --title="client name:?")
+exits $?
+clientaddress=$(zenity --entry --title="client address:?")
+exits $?
+
+reset "clients.txt"
+
+save "clients.txt" "$clientId" "$clientName" "$clientaddress"
+
+zenity --text-info --title="client entry" --filename="clients.txt" 
+exits $?
+
+save "client.txt" "$clientId" "$clientName" "$clientaddress"
  
-read nulln
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
