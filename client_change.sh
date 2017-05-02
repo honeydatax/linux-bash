@@ -26,7 +26,7 @@ printf "" > "$1"
 
 toFind=$(zenity --entry --title="name to find:?")
 exits $?
-printf "%s" $toFind > clientfinder.txt
+printf "%s" "$toFind" > clientfinder.txt
 fgrep -f clientfinder.txt client.txt > clientf.txt
 zenity --text-info --title="name to find:?" --filename="clientf.txt"
 exits $?
@@ -34,11 +34,14 @@ exits $?
 
 toFind=$(zenity --entry --title="id client to find:?")
 exits $?
-printf "%s" $toFind > clientfinder.txt
+printf " %s" "$toFind :" > clientfinder.txt
 fgrep -f clientfinder.txt client.txt > clientf.txt
 a=$(cat clientf.txt)
-b="change name client:? " "$a"
-zenity ---question --title="$b" --filename="clientf.txt"
+b="change name client:? "
+b="$b $a"
+zenity --text-info --title="$b" --filename="clientf.txt"
+exits $?
+zenity --question --title="$b" 
 exits $?
 
 grep -i -v " $toFind :"  client.txt > clientdelete.txt
