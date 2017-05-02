@@ -4,7 +4,7 @@ tinfo=$(zenity --entry --title="info:?" )
 tvalue=$(zenity --entry --title="value:?" )
 
 printf "%10s " "$tinfo" >> ccalc.txt
-printf ":"  $tinfo >> ccalc.txt
+printf ":"   >> ccalc.txt
 printf "%10s" "$tvalue" >> ccalc.txt
 printf "\n"  >> ccalc.txt
 
