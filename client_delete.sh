@@ -1,47 +1,63 @@
-#!/bin/sh
+#!/bin/bash
 
-clear 
-printf "name to find:?" 
-read toFind
-printf "%s" $toFind > clientfinder.txt
-fgrep -f clientfinder.txt client.txt
 
-printf "delete client y:?" 
-read toFind
-if [ "$toFind" = "n" ] ;
-then exit
+exits(){
+if [ "$1" = "1" ]
+then 
+exit
 fi
-if [ "$toFind" = "N" ] ;
-then exit
-fi
-printf "client id to delete:?" 
-read toFind
-printf "%s" " $toFind :" > clientfinder.txt
-fgrep -f clientfinder.txt client.txt
-printf "delete client y:?" 
-read toFinds
-if [ "$toFinds" = "n" ] ;
-then exit
-fi 
+}
 
-if [ "$toFinds" = "N" ] ;
-then exit
-fi
+save(){
+printf "%s " "$2" >> "$1"
+printf ":" >> "$1"
+printf "%10s " "$3" >> "$1"
+printf ":" >> "$1"
+printf "%s " "$4" >> "$1"
+printf "\n" >> "$1"
 
-printf ". $toFind :.\n"
-grep -i -v " $toFind :"  client.txt > clientdelete.txt
+}
+
+reset(){
+printf "" > "$1"
+
+}
 
 
-printf "client delete:\n" 
-printf "$toFind" 
+toFind=$(zenity --entry --title="name to find:?")
+exits $?
+printf "%s" "$toFind" > clientfinder.txt
+fgrep -f clientfinder.txt client.txt > clientf.txt
+zenity --text-info --title="name to find:?" --filename="clientf.txt"
+exits $?
 
-rm client.txt
+
+toFind=$(zenity --entry --title="id client to find:?")
+exits $?
+printf " %s" "$toFind :" > clientfinder.txt
+fgrep -f clientfinder.txt client.txt > clientf.txt
+a=$(cat clientf.txt)
+b="change name client:? "
+b="$b $a"
+zenity --text-info --title="$b" --filename="clientf.txt"
+exits $?
+zenity --question --title="$b" 
+exits $?
+
+grep -i -v "$toFind :"  client.txt > clientdelete.txt
+
+sudo rm client.txt
 
 cp clientdelete.txt client.txt
 
-chmod 777 client.txt
+chmod 666 client.txt
 
-read nnull
+#clientId="$toFind"
+ 
+
+
+
+
 
 
 
