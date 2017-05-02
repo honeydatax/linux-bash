@@ -34,7 +34,7 @@ exits $?
 
 toFind=$(zenity --entry --title="id client to find:?")
 exits $?
-printf " %s" "$toFind :" > clientfinder.txt
+printf "%s" "$toFind :" > clientfinder.txt
 fgrep -f clientfinder.txt client.txt > clientf.txt
 a=$(cat clientf.txt)
 b="change name client:? "
@@ -44,7 +44,7 @@ exits $?
 zenity --question --title="$b" 
 exits $?
 
-grep -i -v " $toFind :"  client.txt > clientdelete.txt
+grep -i -v "$toFind :"  client.txt > clientdelete.txt
 
 sudo rm client.txt
 
