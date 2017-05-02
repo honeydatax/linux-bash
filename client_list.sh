@@ -1,5 +1,2 @@
-#!/bin/sh
-
-clear 
-cat client.txt
-read Nnull
+#!/bin/bash
+zenity --text-info --title="list all clients:" --filename="client.txt"
