@@ -1,23 +1,8 @@
 #!/bin/bash
-picconverter=0
 
-if [ "$1" != "" ];
-then 
-picconverter=1
-fi
+a=$(zenity --file-selection --title="select a bitmap to convert into jpg")
 
-if [ "$1" != "" ];
-then 
-picconverter=1
-fi
-
-if [ "picconverter" == "1" ];
-then 
-printf "pic pic.bmp pic.jpg\n"
-exit
-fi
-
-cjpeg -quality 100 "$1" > "$2"
+cjpeg -quality 100 "$a" > "$a.jpg"
 
 
 
