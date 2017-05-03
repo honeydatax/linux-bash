@@ -1,30 +1,30 @@
 #!/bin/bash
 
-if [ "$1" == "" ]
+printf "crypt\ndecript\n" > "list.txt"
+a=$(zenity --list --title="files" --separator=" " --column="menu" < "list.txt")
+
+
+
+if [ "$a" = "crypt" ]
 then 
-printf "%s cript %s decript\n\n" "-c" "-d"
+a=$(zenity --password --title="enter password" --text="enter password")
+b=$(zenity --password --title="confirme password" --text="enter password")
+c=$(zenity --file-selection --title="select a file to crypt?" --file-filter="*.*")
+printf "$a\n$b\ny\n" > password.txt
+gpg -c "$c" < password.txt
+sudo rm password.txt
 exit
 fi
 
-if [ "$1" == "-c" ]
-then 
-printf "\nstring to cript: "
-read nnull
-printf "\n"
-printf "" > password.txt
-printf "%s" "$nnull" >> password.txt
-gpg -c password.txt
-printf "\n" 
-cat password.txt.gpg 
-exit
-fi
 
-
-if [ "$1" == "-d" ]
+if [  "$a" == "decript" ]
 then 
-printf "\nfile password.txt.gpg: "
-gpg -d password.txt.gpg
-printf "\n" 
+a=$(zenity --password --title="enter password" --text="enter password")
+b=$(zenity --password --title="confirme password" --text="enter password")
+c=$(zenity --file-selection --title="select a file to crypt?" --file-filter="*.gpg")
+printf "$a\n$b\ny\n" > password.txt
+gpg -d "$c" > "$c.out" < password.txt
+sudo rm password.txt
 exit
 fi
 
