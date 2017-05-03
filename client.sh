@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 exits(){
 if [ "$1" = "1" ]
@@ -8,9 +8,9 @@ fi
 }
 
 save(){
-printf "%s " "$2" >> "$1"
+printf " %s " "$2" >> "$1"
 printf ":" >> "$1"
-printf "%10s " "$3" >> "$1"
+printf "%s " "$3" >> "$1"
 printf ":" >> "$1"
 printf "%s " "$4" >> "$1"
 printf "\n" >> "$1"

@@ -9,9 +9,9 @@ fi
 }
 
 save(){
-printf "%s " "$2" >> "$1"
+printf " %s " "$2" >> "$1"
 printf ":" >> "$1"
-printf "%10s " "$3" >> "$1"
+printf "%s " "$3" >> "$1"
 printf ":" >> "$1"
 printf "%s " "$4" >> "$1"
 printf "\n" >> "$1"
@@ -34,7 +34,7 @@ exits $?
 
 toFind=$(zenity --entry --title="id client to find:?")
 exits $?
-printf "%s" "$toFind :" > clientfinder.txt
+printf "%s" " $toFind :" > clientfinder.txt
 fgrep -f clientfinder.txt client.txt > clientf.txt
 a=$(cat clientf.txt)
 b="change name client:? "
