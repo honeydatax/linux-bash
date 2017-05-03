@@ -1,21 +1,25 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 
 
 clear
 a=$(zenity --question  --title="love..." --text="\nDo mariana love me." )
 
+b="NO"
+
+
 if [ "$?" = "0" ];
 then
-printf "\n%s\n" "YES"
+b="YES"
 fi
 
 if [ "$?" = "1" ];
 then
-printf "\n%s\n" "NO"
+b="NO"
 fi
 
-printf "\n%d\n" "$a"
+zenity --notification --title="info box" --text="$b" --hint="$b"
+
 
 
 
