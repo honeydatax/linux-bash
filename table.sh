@@ -1,89 +1,142 @@
-#!/usr/bin/bash
-x="25"
-y="700"
-f="25"
-var0="%PS"
-printf "%s\n" "$var0" > ps.ps
+#!/bin/bash
+y="780"
+
+opens(){
+ps2pdf "$1" "$2"
+xpdf "$2" &
+}
+
+head(){
+echo "%PS" > "$1"
+}
+
+tfonts(){
+echo "/$2 findfont" >> "$1"
+echo "$3 scalefont" >> "$1"
+echo "setfont" >> "$1"
+}
+
+tprint(){
+echo "newpath" >> "$1"
+echo "$2 $3 moveto" >> "$1"
+echo "($4) show" >> "$1"
+printf "%s : %s" "$3" "$5" > ccalc.txt
+y=$(awk -F: 'BEGIN{v=0;}{v = $1 - $2 ; print v ; }END{v = 0}' "ccalc.txt" )
+}
+
+line(){
+echo "newpath" >> "$1"
+echo "$2 $3 moveto" >> "$1"
+echo "$4 $5 lineto" >> "$1"
+echo "1 setlinewidth" >> "$1"
+echo "stroke" >> "$1"
+}
+
+
+file="ps.ps"
+fpdf="ps.pdf"
+
+head "$file"
+
+x1=50
+y1=720
+x2=50
+y2=250
+
+tt=$(( 20 * 22 + 50 ))
+
 while :
-do
-printf "newpath\n" >> ps.ps
-printf "%d 850 moveto\n" "$x" >> ps.ps
-printf "%d 10 lineto\n" "$x" >> ps.ps
-printf "1 setlinewidth\n" >> ps.ps
-printf "stroke\n" >> ps.ps
-x=$(( x + f ))
-if [ "$x" = "600" ];
+do 
+line "$file" "$x1" "$y1" "$x2" "$y2"
+x1=$(( x1 + 20 ))
+if [ "$x1" = "$tt" ];
 then
 break
 fi
+
+x2="$x1"
+
 done
 
-x="50";
+x1=40
+y1=700
+x2="$tt"
+y2=700
+
+tt=$(( 20 * 22 ))
+tt=$(( 700 - tt ))
+
 while :
-do
-printf "newpath\n" >> ps.ps
-printf "0 %d moveto\n" "$x" >> ps.ps
-printf "700 %d lineto\n" "$x" >> ps.ps
-printf "1 setlinewidth\n" >> ps.ps
-printf "stroke\n" >> ps.ps
-x=$(( x + f ))
-if [ "$x" = "850" ];
+do 
+line "$file" "$x1" "$y1" "$x2" "$y2"
+y1=$(( y1 - 20 ))
+if [ "$y1" = "$tt" ];
 then
 break
 fi
+
+y2="$y1"
+
 done
 
 
+tfonts "$file" "Times-Roman" "11"
 
-t="25"
-z="-10"
-x="25";
+x1=52
+y1=710
+x2=52
+y2=0
+values=-10
+
+tt=$(( 20 * 20 + 50 ))
+
+
+
 while :
-do
-printf "/Times-Roman findfont\n" >> ps.ps
-printf "16 scalefont\n"  >> ps.ps
-printf "setfont\n" >> ps.ps
-printf "newpath\n" >> ps.ps
-printf "%d 805 moveto" "$t" >> ps.ps
-printf "(%d) show\n"  "$z" >> ps.ps
-z=$(( z + 1 ))
-x=$(( x + f ))
-t=$(( x + 2 ))
-if [ "$z" = "11" ];
+do 
+tprint "$file" "$x1" "$y1" "$values"
+x1=$(( x1 + 20 ))
+values=$(( values + 1 ))
+if [ "$values" = "11" ];
 then
 break
 fi
+
 done
 
 
+x1=30
+y1=690
+x2="$tt"
+y2=700
+values=-10
 
-z="-10"
-x="775"
-t="$x"
-clear
+tt=$(( 20 * 22 ))
+tt=$(( 700 - tt ))
+
 while :
-do
-printf "/Times-Roman findfont\n" >> ps.ps
-printf "16 scalefont\n"  >> ps.ps
-printf "setfont\n" >> ps.ps
-printf "newpath\n" >> ps.ps
-printf "2 %d moveto" "$t" >> ps.ps
-#printf "%d\n" "$z"
-printf "(%d) show\n"  "$z" >> ps.ps
-z=$(( z + 1 ))
-x=$(( x - f ))
-t=$(( x + 2 ))
-if [ "$z" = "11" ];
+do 
+tprint "$file" "$x1" "$y1" "$values"
+y1=$(( y1 - 20 ))
+values=$(( values + 1 ))
+
+if [ "$values" = "11" ];
 then
 break
 fi
+
+y2="$y1"
+
 done
 
 
 
 
-ps2pdf ps.ps ps.pdf
-xpdf ps.pdf &
+
+
+
+ 
+opens "$file" "$fpdf"
 
 
 
