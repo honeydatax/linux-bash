@@ -1,96 +1,66 @@
-#include <stdio.h>
-#include <termios.h>
-#include <string.h>
-#include <limits.h>
-#include <time.h>
-#include <sys/time.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include "graficx.h"
 #include <math.h>
 
 #define PI 3.1415927
 
 
-int xx=1;
-int yy=1;
-int color=7;
-int bcolor=0;
-void setbcolor(int c);
-void setcolor(int c);
-void clear();
-void setx(int x);
-void sety(int y);
-void gotoxy(int x,int y);
-void cls();
+int main(int argc, char ** argv){
+char a=0;
+int mm=0;
+int m1=0;
+int center=300;
+int scenter=1;
+int w=0;
+long l;
+long ll5=0;
+int counter=0;
+char ccc=0;
+char cc[100];
+int fd1=0;
+int fd2=0;
+int fff=0;
+char *s1;
+char *s2;
+int t=0;
+long ll=0;
+int i1=40,i2=40,i3=10,i4=10,i5=0,i6,i7,i8,i9,i10,i11,i12;
+long double ddddd=0.0,d1=0.0,dd1=0,d=0.0,dd=0.0,ddd=0.0,pi=(long double)PI;
+int x=1,y=1,bc=0,c=7,x1=0,y1=0;
 
-int main(){
-long double d=0.0,dd=0.0,ddd=0.0,pi=(long double)PI;
-int x=1,y=1,bc=0,c=7;
-cls();
-clear();
-setbcolor(7);
-setcolor(0);
-for (ddd=1.0;ddd<13.0;ddd++){
-dd=10.0-10.0*(cos)(ddd/6*pi);
-d=40.0+15.0*(sin)(ddd/6*pi);
+
+
+startX();
+char cx[1024];
+char *kll;
+kll=cx;
+strcpy(cx,"im love marina.\0");
+
+
+for (ddd=0.0;ddd<37.0;ddd++){
+dd=150.0-100.0*(cos)(ddd/(36/2)*pi);
+d=150.0+100.0*(sin)(ddd/(36/2)*pi);
+ddddd=ddd+1.0;
+if (ddddd==37.0)ddddd=0;
+dd1=150.0-100.0*(cos)(ddddd/(36/2)*pi);
+d1=150.0+100.0*(sin)(ddddd/(36/2)*pi);
 bc=(int)ddd;
 x=(int)d;
 y=(int)dd;
-gotoxy(x,y);
-printf("%d",bc); 
+x1=(int)d1;
+y1=(int)dd1;
+line(x,y,x1,y1,BLUE);
 }
-gotoxy(1,1);
-usleep(8000000);
+
+
+refresh();
+caption(kll);
+
+
+
+LOOPS();
+
 return 0;
 }
-
-
-void setx(int x){
-xx=x;
-}
-
-
-void sety(int y){
-yy=y;
-}
-
-void gotoxy(int x,int y)
-{
-printf("\e[%d;%df",y,x);
-}
-
-void clear(){
-int n;
-for(n=0;n<26;n++){
-printf("\n");
-}
-gotoxy(1,1);
-}
-
-void setcolor(int c){
-int cc;
-cc=c+30;
-color=c;
-printf("\e[%dm",cc);
-}
-
-void setbcolor(int c){
-int cc;
-cc=c+40;
-bcolor=c;
-printf("\e[%dm",cc);
-}
-
-
-void cls(){
-printf("\033c");
-}
-
-
 
 
 
