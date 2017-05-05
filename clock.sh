@@ -1,20 +1,22 @@
 #!/bin/bash
 
-clear
-ctrc="";
+a=""
 
-stty -icanon min 0 time 0
-while : 
+(while :
 do 
 theClock=$(date)
-dialog --title "clock..." --infobox "$theClock" 0 0
+if [ "$a" != "" ];
+then  
+break 
+fi
+printf "# %s\n" "$theClock"
 sleep 1
-read ctrc
-if [ "$ctrc" != "" ];
-then break
-fi 
-done
-stty -g
+done) | a=$(zenity --progress --title="clock")
+
+
+
+
+
 
 
 
