@@ -2636,10 +2636,8 @@ unsigned char font8x8[FONTDATAMAX] = {
 
 
 void ppixel(int x,int y,char color){
-if(x>=0 && x<600 && y>=0 && y<350){
 Uint8 *p=(Uint8*)s->pixels+y*s->pitch+x;
 *(Uint8 *)p=color;
-}
 } 
 
 
@@ -2653,7 +2651,8 @@ xx1=xx2;
 xx2=xx3;
 }
 for(f=xx1;f<xx2;f++){
-ppixel(f,y,color);
+Uint8 *p=(Uint8*)s->pixels+y*s->pitch+f;
+*(Uint8 *)p=color;
 }
 
 } 
@@ -2668,7 +2667,8 @@ yy1=yy2;
 yy2=yy3;
 }
 for(f=yy1;f<yy2;f++){
-ppixel(x,f,color);
+Uint8 *p=(Uint8*)s->pixels+f*s->pitch+x;
+*(Uint8 *)p=color;
 }
 
 } 
@@ -2699,7 +2699,8 @@ scrolls=128;
 bits=font8x8[aa];
 for (iii=0;iii<8;iii++){
 if ((bits & scrolls)!=0){
-ppixel(xx,yy,color);
+Uint8 *p=(Uint8*)s->pixels+yy*s->pitch+xx;
+*(Uint8 *)p=color;
 }
 xx++;
 scrolls=scrolls/2;
@@ -2793,7 +2794,8 @@ i6=i1;
 c=0;
 c2=0;
 for(i5=0;i5<i1;i5++){
-ppixel(xx+i5,yy,color);
+Uint8 *p=(Uint8*)s->pixels+(yy)*s->pitch+(xx+i5);
+*(Uint8 *)p=color;
 
 c2++;
 c++;
@@ -2819,7 +2821,8 @@ i6=i2;
 c=0;
 c2=0;
 for(i5=0;i5<i2;i5++){
-ppixel(xx,yy+i5,color);
+Uint8 *p=(Uint8*)s->pixels+(yy+i5)*s->pitch+(xx);
+*(Uint8 *)p=color;
 
 c2++;
 c++;
@@ -2882,7 +2885,9 @@ i6=i1;
 c=0;
 c2=0;
 for(i5=0;i5<i1;i5++){
-ppixel(xx+i5,yyy,color);
+Uint8 *p=(Uint8*)s->pixels+(yyy)*s->pitch+(xx+i5);
+*p=color;
+
 c2++;
 c++;
 if (c2>i3){
@@ -2907,7 +2912,9 @@ i6=i2;
 c=0;
 c2=0;
 for(i5=0;i5<i2;i5++){
-ppixel(xx,yyy-i5,color);
+Uint8 *p=(Uint8*)s->pixels+(yyy-i5)*s->pitch+(xx);
+*p=color;
+
 c2++;
 c++;
 if (c2>=i3){
@@ -3055,7 +3062,8 @@ c2=0;
 for(i5=0;i5<i1+1;i5++){
 l5=l3/10000;
 i3=(int)l5;
-ppixel(xx+i5,y+(i3),color);
+Uint8 *p=(Uint8*)s->pixels+(y+(i3))*s->pitch+(xx+i5);
+*(Uint8 *)p=color;
 l3=l3+l4;
 }
 }else{
@@ -3071,7 +3079,8 @@ c2=0;
 for(i5=0;i5<i2+1;i5++){
 l5=l3/10000;
 i3=(int)l5;
-ppixel(xx+i3,y+(i5),color);
+Uint8 *p=(Uint8*)s->pixels+(yy+i5)*s->pitch+(xx+i3);
+*(Uint8 *)p=color;
 l3=l3+l4;
 }
 } 
@@ -3118,7 +3127,8 @@ c2=0;
 for(i5=0;i5<i1+1;i5++){
 l5=l3/10000;
 i3=(int)l5;
-ppixel(xx+i5,y-(i3),color);
+Uint8 *p=(Uint8*)s->pixels+(y-(i3))*s->pitch+(xx+i5);
+*(Uint8 *)p=color;
 l3=l3+l4;
 }
 }else{
@@ -3134,7 +3144,8 @@ c2=0;
 for(i5=0;i5<i2+1;i5++){
 l5=l3/10000;
 i3=(int)l5;
-ppixel(xx+i3,yy-i5,color);
+Uint8 *p=(Uint8*)s->pixels+(yy-i5)*s->pitch+(xx+i3);
+*(Uint8 *)p=color;
 l3=l3+l4;
 }
 } 
