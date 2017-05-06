@@ -1,7 +1,7 @@
 #!/bin/bash
 
-dialog --title "chage time clock" --timebox "change clock" 0 0 2> out.txt
-tt=$(cat out.txt)
+t=$(zenity --entry --title="enter time:" --text="enter time hh:mm:ss" )
+tt="$t"
 t=$(zenity --calendar --title="change date")
 printf "%s" "$t" > out.txt
 tr -d "-" < out.txt > out2.txt
