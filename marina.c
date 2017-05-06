@@ -34,22 +34,8 @@ char cx[1024];
 char *kll;
 kll=cx;
 strcpy(cx,"im love marina.\0");
-ddddd=600.0;
 
-for (ddd=0.0;ddd<300.0;ddd++){
-dd=150.0-100.0*(cos)(ddd/(300/2)*pi);
-d=150.0+100.0*(sin)(ddd/(300/2)*pi);
-ddddd--;
-dd1=150.0-100.0*(cos)(ddddd/(300/2)*pi);
-d1=150.0+100.0*(sin)(ddddd/(300/2)*pi);
-bc=(int)ddd;
-x=(int)d;
-y=(int)dd;
-x1=(int)d1;
-y1=(int)dd1;
-line(x,y,x1,y1,BLUE);
-}
-
+ball(300,175,70,BLUE);
 
 refresh();
 caption(kll);

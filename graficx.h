@@ -11,11 +11,14 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <math.h>
+
+
 SDL_Surface *s;
 SDL_Rect rect[1];
 
 #define FONTDATAMAX 2048
-
+#define PI 3.1415927
  
 #define BLACK         0
 #define BLUE          3
@@ -35,8 +38,10 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+void circle(int xx,int yy ,int rr,char color);
+void ball(int xx,int yy ,int rr,char color);
 void drawx(int x,int y,int r,char color);
-void ball(int x,int y,int r,char color);
+void uball(int x,int y,int r,char color);
 void clear();
 void cls(char color);
 void box(int x,int y,int x2,int y2,char color);
@@ -53,7 +58,7 @@ void refresh();
 void lineRight(int x,int y,int x2,int y2,char color);
 void lineLeft(int x,int y,int x2,int y2,char color);
 int iidiv(int a,int b);
-void circle(int x,int y,int r,char color);
+void ucircle(int x,int y,int r,char color);
 void lineR(int x,int y,int x2,int y2,char color);
 void lineL(int x,int y,int x2,int y2,char color);
 void line(int x,int y,int x2,int y2,char color);
@@ -2956,7 +2961,7 @@ boxs(xxx,yyy,xxx+size,yyy+usize,color);
 }
 
 
-void ball(int x,int y,int r,char color){
+void uball(int x,int y,int r,char color){
 int i=0;
 int size=r*2;
 int usize=size/12;
@@ -2976,7 +2981,7 @@ if(i<y-size/8 || i>y+size/8)musize=musize+uusize/2;
 }
 
 
-void circle(int x,int y,int r,char color){
+void ucircle(int x,int y,int r,char color){
 int i=0;
 int size=r*2;
 int usize=size/12;
@@ -3170,8 +3175,52 @@ line(x2,y,x2,y2,color);
 }
 
 
+void circle(int xx,int yy ,int rr,char color){
+long double rrr=(long double)rr,dx=(long double)xx,dy=(long double)yy,ddddd=0.0,d1=0.0,dd1=0,d=0.0,dd=0.0,ddd=0.0,pi=(long double)PI;
+long double xyr=rrr*2;
+int x=1,y=1,bc=0,c=7,x1=0,y1=0;
+long double rrr1=rrr*2;
+long double rrr2=xyr/2;
+for (ddd=0.0;ddd<xyr+1.0;ddd=ddd+1.0){
+dd=dy-rrr1*(cos)(ddd/rrr2*pi);
+d=dx+rrr1*(sin)(ddd/rrr2*pi);
+ddddd=ddd+1.0;
+if (ddddd>xyr + 1.0)ddddd=0;
+dd1=dy-rrr1*(cos)(ddddd/rrr2*pi);
+d1=dx+rrr1*(sin)(ddddd/rrr2*pi);
+bc=(int)ddd;
+x=(int)d;
+y=(int)dd;
+x1=(int)d1;
+y1=(int)dd1;
+line(x,y,x1,y1,color);
+}
+
+}
 
 
+void ball(int xx,int yy ,int rr,char color){
+long double rrr=(long double)rr,dx=(long double)xx,dy=(long double)yy,ddddd=0.0,d1=0.0,dd1=0,d=0.0,dd=0.0,ddd=0.0,pi=(long double)PI;
+int x=1,y=1,bc=0,c=7,x1=0,y1=0;
+long double rrr1=rrr*2;
+long double xyr=rrr1*pi*2;
+long double rrr2=xyr/2;
+for (ddd=0.0;ddd<xyr/2;ddd=ddd+1.0){
+dd=dy-rrr1*(cos)(ddd/rrr2*pi);
+d=dx+rrr1*(sin)(ddd/rrr2*pi);
+ddddd--;
+if (ddddd>xyr + 1.0)ddddd=0;
+dd1=dy-rrr1*(cos)(ddddd/rrr2*pi);
+d1=dx+rrr1*(sin)(ddddd/rrr2*pi);
+bc=(int)ddd;
+x=(int)d;
+y=(int)dd;
+x1=(int)d1;
+y1=(int)dd1;
+line(x,y,x1,y1,color);
+}
+
+}
 
 
 
