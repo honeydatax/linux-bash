@@ -1,0 +1,81 @@
+.\" Manpage for database
+.\" honeydatax
+.TH man 0 "10 MAY 2017"1.0"database man page
+.SH NAME
+database \- database builder small and simply to bash file
+.SH SYNOPSIS
+ ./database
+no token show last database name last table used 
+ ./database creat database 'data2'
+ keyword creat database creat a database name
+ ./database creat table 'table2'
+ keyword creat table creats a new table on last database open
+ ./database add value 'id' integer 
+ add coluns to table of last database and table open
+ ./database add value 'price' number 
+ add a new colum of name 'price' on format number 
+ ./database add value 'employ name' txt 100
+ add a new colum on text format of size max 126
+ ./database list value
+ keyword list value lists all coluns in a table and record sizes.
+ ./database table
+ keyword table lists all coluns in a table and record sizes.
+ ./database record size
+ keyword record size show the size of record of last database open
+ ./database add record 4 599.99 "employ 4"
+ add a record into the table database id 4 price  and employ name 
+.SH DESCRIPTION
+ ./database
+ no token show last database name last table used 
+ ./database creat database 'data2'
+ keyword creat database creat a database name
+ ./database creat table 'table2'
+ keyword creat table creats a new table on last database open
+ ./database add value 'id' integer 
+ add coluns to table of last database and table open
+ ./database add value 'price' number 
+ add a new colum of name 'price' on format number 
+ ./database add value 'employ name' txt 100
+ add a new colum on text format of size max 126
+ ./database list value
+ keyword list value lists all coluns in a table and record sizes.
+ ./database table
+ keyword table lists all coluns in a table and record sizes.
+ ./database record size
+ keyword record size show the size of record of last database open
+ ./database add record 4 599.99 "employ 4"
+ add a record into the table database id 4 price  and employ name 
+.SH OPTIONS
+ ./database       
+ ./database creat database 'data2'
+ ./database creat table 'table2'
+ ./database add value 'id' integer 
+ ./database add value 'price' number 
+ ./database add value 'employ name' txt 100
+ ./database list value
+ ./database table
+ ./database record size
+ ./database add record 0 699.99 "employ 0"
+ ./database add record 1 699.99 "employ 1"
+ ./database add record 2 699.99 "employ 2"
+ ./database add record 3 799.99 "employ 3"
+ ./database add record 4 599.99 "employ 4"
+.SH ALSO
+more honey datax on net
+.SH BUGS
+not complet yet
+.SH AUTHOR
+honeydatax
+
+
+
+
+
+
+
+
+
+
+
+
+
