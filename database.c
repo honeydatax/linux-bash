@@ -16,11 +16,23 @@ char table[256];
 char table2[270];
 char table3[270];
 const char *typee[]={"txt","integer","number"};
+char recordq[270];
 char ttable[270][34];
 char tsizet[270][2];
 int iindex=0;
+int recssize=0;
+char sumtable[270];
+char ordertable[270];
+int orTable=0;
 
 
+
+void recordTxt(char *l);
+void recordNumber(char *l);
+void recordInteger(char *l);
+
+void loadTablePos ();
+void loadTableOrder (char *e);
 void addInterger(char *e);
 void addTxt(char *e,char f);
 void addNumber(char *e);
@@ -29,6 +41,8 @@ void creatT(char *e);
 void openT();
 void valueInteger(char *e);
 void listV();
+
+int recordload(int f1);
 void valueNumber(char *e);
 void valueTxt(char *e,char f);
 void recordS();
@@ -38,7 +52,7 @@ void selectx();
 int loadTxt(int f1,char s);
 int loadNumber(int f1);
 int loadInteger(int f1);
-
+void recordSs();
 
 int main(int argc, char ** argv){
 int f1;
@@ -49,6 +63,41 @@ exit(0);
 }
 
 char *c=argv[1];
+
+if (argc>2){
+char *d;
+if (0==strcmp("select\0",c)){
+int f4=0;
+int f1=0;
+int iiii=3;
+openT();
+listF();
+recordSs();
+orTable=0;
+
+for(iiii=2;iiii<argc;iiii++){
+d=&argv[iiii][0];
+loadTableOrder(d);
+}
+loadTablePos ();
+f1=open(&table3[0] , O_RDONLY );
+if(f1!=-1){
+do{
+f4=recordload(f1);
+if (f4!=0){
+for(iiii=0;iiii<orTable;iiii++){
+if (tsizet[ordertable[iiii]][0]==1) recordInteger(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==2) recordNumber(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==0) recordTxt(&recordq[sumtable[iiii]]);
+if(iiii!=orTable-1) printf (":");
+}
+}
+printf ("\n");
+}while (f4!=0);
+}
+close (f1);
+}
+}
 
 if (argc>3){
 if (0==strcmp("add\0",c)){
@@ -495,6 +544,95 @@ f2=read(f1,&l,ss);
 printf("%s",l);
 return f2;
 }
+
+void recordSs(){
+int tsum=0;
+int t=0;
+int f1;
+int f2;
+int f3;
+int f4;
+char e[36];
+char *p;
+char b=1;
+char b2=sizeof(int);
+openT();
+p=&table2[0];
+f1=open (p , O_RDONLY);
+if(f1!=-1){
+do{
+f2=read(f1,e,32);
+f3=read(f1,&b,1);
+f4=read(f1,&b2,1);
+if (f4!=0) {
+t=(int)b2;
+tsum=tsum+t;
+}
+}while (f4!=0);
+close (f1);
+recssize=tsum;
+}else{
+printf ("error:");
+}
+}
+
+
+void loadTableOrder (char *e){
+int i=0;
+sscanf(e,"%d",&i);
+ordertable[orTable]=(char) i;
+sumtable[orTable]=(char) i;
+orTable++;
+}
+
+
+void loadTablePos (){
+int ii=0;
+int i=0;
+int ss=0;
+int sss=0;
+for (i=0;i<orTable;i++){
+ss=sumtable[i];
+sss=0;
+for (ii=0;ii<ss;ii++){
+sss=sss+tsizet[ii][1];
+}
+sumtable[i]=sss;
+}
+}
+
+int recordload(int f1){
+int rets=0;
+rets=read (f1,recordq,recssize);
+return rets;
+}
+
+void recordInteger(char *l){
+long ll=(long) *l;
+printf("%20lu",ll);
+}
+
+void recordNumber(char *l){
+long double ll=(long double) *l;
+printf("%20lf",ll);
+}
+
+void recordTxt(char *l){
+printf("%s",l);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
