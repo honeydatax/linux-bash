@@ -28,6 +28,8 @@ no token show last database name last table used
  select all the coluns of all records
  ./database select 0 2 4
  select coluns 0 2 4 off all records 
+ ./database where 0 1 0 1 2
+ list all records where colum 0 is integer 1 show coluns 0 1 and 2
 .SH DESCRIPTION
  ./database
  no token show last database name last table used 
@@ -53,6 +55,8 @@ no token show last database name last table used
  select all the coluns of all records
  ./database select 0 2 4
  select coluns 0 2 4 off all records 
+ ./database where 0 1 0 1 2
+ list all records where colum 0 is integer 1 show coluns 0 1 and 2
 .SH OPTIONS
  ./database       
  ./database creat database 'data2'
@@ -70,6 +74,7 @@ no token show last database name last table used
  ./database add record 4 599.99 "employ 4"
  ./database select
  ./database select 0 2 4
+ ./database where 0 1 0 1 2
 .SH ALSO
 more honey datax on net
 .SH BUGS
