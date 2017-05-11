@@ -24,6 +24,10 @@ no token show last database name last table used
  keyword record size show the size of record of last database open
  ./database add record 4 599.99 "employ 4"
  add a record into the table database id 4 price  and employ name 
+ ./database select
+ select all the coluns of all records
+ ./database select 0 2 4
+ select coluns 0 2 4 off all records 
 .SH DESCRIPTION
  ./database
  no token show last database name last table used 
@@ -45,6 +49,10 @@ no token show last database name last table used
  keyword record size show the size of record of last database open
  ./database add record 4 599.99 "employ 4"
  add a record into the table database id 4 price  and employ name 
+ ./database select
+ select all the coluns of all records
+ ./database select 0 2 4
+ select coluns 0 2 4 off all records 
 .SH OPTIONS
  ./database       
  ./database creat database 'data2'
@@ -60,6 +68,8 @@ no token show last database name last table used
  ./database add record 2 699.99 "employ 2"
  ./database add record 3 799.99 "employ 3"
  ./database add record 4 599.99 "employ 4"
+ ./database select
+ ./database select 0 2 4
 .SH ALSO
 more honey datax on net
 .SH BUGS
