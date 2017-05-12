@@ -27,12 +27,14 @@ int orTable=0;
 int selector=0;
 int ids=0;
 char *ccc;
+char argvs[270][270];
 
-
+void ffind(int argc);
+void adrecord(int argc);
 void recordTxt(char *l);
 void recordNumber(char *l);
 void recordInteger(char *l);
-
+void fwhere(int argc);
 void loadTablePos ();
 void loadTableOrder (char *e);
 void addInterger(char *e);
@@ -44,7 +46,7 @@ void openT();
 void valueInteger(char *e);
 void listV();
 void loadSelector(int ss);
-
+void fselect(int argc);
 
 int recordload(int f1);
 void valueNumber(char *e);
@@ -57,6 +59,9 @@ int loadTxt(int f1,char s);
 int loadNumber(int f1);
 int loadInteger(int f1);
 void recordSs();
+void xselect();
+void tttable();
+void vtxtv();
 
 int main(int argc, char ** argv){
 int f1;
@@ -65,91 +70,30 @@ openT();
 printf ("%s\n",table);	
 exit(0);
 }
+for(int a12=0;a12<argc;a12++)strcpy(argvs[a12],argv[a12]);
 
 char *c=argv[1];
 
 if (argc>2){
 char *d;
 
-if (0==strcmp("where\0",c)){
-char *ccc;
-char *h=argv[2];
-char *i=argv[3];
-int f4=0;
-int f1=0;
-int iiii=3;
-long *ll;
-openT();
-listF();
-recordSs();
-orTable=0;
-sscanf(h,"%d",&selector);
-sscanf(i,"%d",&ids);
-loadSelector(selector);
-for(iiii=4;iiii<argc;iiii++){
-d=&argv[iiii][0];
-loadTableOrder(d);
-}
-loadTablePos ();
-f1=open(&table3[0] , O_RDONLY );
-if(f1!=-1){
-do{
-f4=recordload(f1);
-ccc=&recordq[selector];
-*ll=(long) *ccc;
-if (f4!=0 && *ll==ids){
-for(iiii=0;iiii<orTable;iiii++){
-if (tsizet[ordertable[iiii]][0]==1) recordInteger(&recordq[sumtable[iiii]]);
-if (tsizet[ordertable[iiii]][0]==2) recordNumber(&recordq[sumtable[iiii]]);
-if (tsizet[ordertable[iiii]][0]==0) recordTxt(&recordq[sumtable[iiii]]);
-if(iiii!=orTable-1) printf (":");
-}
-printf ("\n");
+if (0==strcmp("find\0",c)){
+ffind(argc);
+exit(0);
 }
 
-}while (f4!=0);
-}
-close (f1);
+
+
+if (0==strcmp("where\0",c)){
+fwhere(argc);
+exit(0);
 }
 
 if (0==strcmp("select\0",c)){
-int f4=0;
-int f1=0;
-int iiii=3;
-openT();
-listF();
-recordSs();
-orTable=0;
-
-for(iiii=2;iiii<argc;iiii++){
-d=&argv[iiii][0];
-loadTableOrder(d);
-}
-loadTablePos ();
-f1=open(&table3[0] , O_RDONLY );
-if(f1!=-1){
-do{
-f4=recordload(f1);
-if (f4!=0){
-for(iiii=0;iiii<orTable;iiii++){
-if (tsizet[ordertable[iiii]][0]==1) recordInteger(&recordq[sumtable[iiii]]);
-if (tsizet[ordertable[iiii]][0]==2) recordNumber(&recordq[sumtable[iiii]]);
-if (tsizet[ordertable[iiii]][0]==0) recordTxt(&recordq[sumtable[iiii]]);
-if(iiii!=orTable-1) printf (":");
+fselect(argc);
+exit(0);
 }
 }
-printf ("\n");
-}while (f4!=0);
-}
-close (f1);
-}
-
-
-
-
-
-}
-
 
 
 
@@ -159,18 +103,7 @@ if (0==strcmp("add\0",c)){
 char *d=argv[2];
 
 if (0==strcmp("record\0",d)){
-openT();
-listF();
-if(argc==iindex+3){
-int iiii=0;
-for(iiii=0;iiii<iindex;iiii++){
-if(tsizet[iiii][0]==1) addInterger(argv[iiii+3]); 
-if(tsizet[iiii][0]==2) addNumber(argv[iiii+3]); 
-if(tsizet[iiii][0]==0) addTxt(argv[iiii+3],tsizet[iiii][1]); 
-}
-}else{
-printf("error:token");
-}
+adrecord(argc);
 exit(0);
 }
 }
@@ -179,17 +112,13 @@ exit(0);
 
 if (argc==2){
 if (0==strcmp("select\0",c)){
-openT();
-listF();
-selectx();
+xselect();
 exit(0);
 }
 
 
 if (0==strcmp("table\0",c)){
-openT();
-listF();
-printLL();
+tttable();
 exit(0);
 }
 }
@@ -227,9 +156,7 @@ if (0==strcmp("add\0",c)){
 if (0==strcmp("value\0",d)){
 
 if (0==strcmp("txt\0",f)){
-openT();
-sscanf(g,"%d",&gg);
-valueTxt(e,(char) gg);
+vtxtv();
 exit(0);
 }
 
@@ -681,7 +608,6 @@ void loadSelector(int ss){
 int ii=0;
 int i=0;
 int sss=0;
-ss=sumtable[i];
 sss=0;
 for (ii=0;ii<ss;ii++){
 sss=sss+tsizet[ii][1];
@@ -689,17 +615,160 @@ sss=sss+tsizet[ii][1];
 selector=sss;
 }
 
+void fwhere(int argc){
+char *d;
+char *ccc;
+int f4=0;
+int f1=0;
+int iiii=3;
+long *ll;
+openT();
+listF();
+recordSs();
+orTable=0;
+sscanf(argvs[2],"%d",&selector);
+sscanf(argvs[3],"%d",&ids);
+loadSelector(selector);
+for(iiii=4;iiii<argc;iiii++){
+d=&argvs[iiii][0];
+loadTableOrder(d);
+}
+loadTablePos ();
+f1=open(&table3[0] , O_RDONLY );
+if(f1!=-1){
+do{
+f4=recordload(f1);
+ccc=&recordq[selector];
+*ll=(long) *ccc;
+if (f4!=0 && *ll==ids){
+for(iiii=0;iiii<orTable;iiii++){
+if (tsizet[ordertable[iiii]][0]==1) recordInteger(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==2) recordNumber(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==0) recordTxt(&recordq[sumtable[iiii]]);
+if(iiii!=orTable-1) printf (":");
+}
+printf ("\n");
+}
+
+}while (f4!=0);
+}
+close (f1);
+
+}
 
 
+void fselect(int argc){
+char *d;
+int f4=0;
+int f1=0;
+int iiii=3;
+openT();
+listF();
+recordSs();
+orTable=0;
+
+for(iiii=2;iiii<argc;iiii++){
+d=&argvs[iiii][0];
+loadTableOrder(d);
+}
+loadTablePos ();
+f1=open(&table3[0] , O_RDONLY );
+if(f1!=-1){
+do{
+f4=recordload(f1);
+if (f4!=0){
+for(iiii=0;iiii<orTable;iiii++){
+if (tsizet[ordertable[iiii]][0]==1) recordInteger(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==2) recordNumber(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==0) recordTxt(&recordq[sumtable[iiii]]);
+if(iiii!=orTable-1) printf (":");
+}
+}
+printf ("\n");
+}while (f4!=0);
+}
+close (f1);
+}
+
+void adrecord(int argc){
+openT();
+listF();
+if(argc==iindex+3){
+int iiii=0;
+for(iiii=0;iiii<iindex;iiii++){
+if(tsizet[iiii][0]==1) addInterger(argvs[iiii+3]); 
+if(tsizet[iiii][0]==2) addNumber(argvs[iiii+3]); 
+if(tsizet[iiii][0]==0) addTxt(argvs[iiii+3],tsizet[iiii][1]); 
+}
+}else{
+printf("error:token");
+}
 
 
+}
+
+void xselect(){
+openT();
+listF();
+selectx();
+}
 
 
+void tttable(){
+openT();
+listF();
+printLL();
+}
+
+void vtxtv(){
+int gg=0;
+openT();
+sscanf(argvs[5],"%d",&gg);
+valueTxt(argvs[3],(char) gg);
+}
 
 
+void ffind(int argc){
+int sss=0;
+char *d;
+char *ccc;
+int f4=0;
+int f1=0;
+int iiii=3;
+char *ll;
+openT();
+listF();
+recordSs();
+orTable=0;
+sscanf(argvs[2],"%d",&sss);
+sscanf(argvs[3],"%d",&ids);
+loadSelector(sss);
+for(iiii=4;iiii<argc;iiii++){
+d=&argvs[iiii][0];
+loadTableOrder(d);
+}
+loadTablePos ();
+f1=open(&table3[0] , O_RDONLY );
+if(f1!=-1){
+do{
+f4=recordload(f1);
+recordq[selector];
+ll=strstr(&recordq[selector],argvs[3]);
+if (f4!=0 && ll!=NULL){
+for(iiii=0;iiii<orTable;iiii++){
+if (tsizet[ordertable[iiii]][0]==1) recordInteger(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==2) recordNumber(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==0) recordTxt(&recordq[sumtable[iiii]]);
+if(iiii!=orTable-1) printf (":");
+}
+printf ("\n");
+}
 
+}while (f4!=0);
+}
+close (f1);
 
-
+}
 
 
 
