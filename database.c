@@ -596,7 +596,7 @@ printf("%20lu",ll);
 
 void recordNumber(char *l){
 long double ll=(long double) *l;
-printf("%20lf",ll);
+printf("%lf",ll);
 }
 
 void recordTxt(char *l){
@@ -618,10 +618,12 @@ selector=sss;
 void fwhere(int argc){
 char *d;
 char *ccc;
+char *ccc1;
 int f4=0;
 int f1=0;
 int iiii=3;
 long *ll;
+long double *ll1;
 openT();
 listF();
 recordSs();
@@ -643,7 +645,10 @@ ccc=&recordq[selector];
 if (f4!=0 && *ll==ids){
 for(iiii=0;iiii<orTable;iiii++){
 if (tsizet[ordertable[iiii]][0]==1) recordInteger(&recordq[sumtable[iiii]]);
-if (tsizet[ordertable[iiii]][0]==2) recordNumber(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==2){
+ll1=(long double *) &recordq[sumtable[iiii]];
+printf("%lf",*(ll1+0));
+}
 if (tsizet[ordertable[iiii]][0]==0) recordTxt(&recordq[sumtable[iiii]]);
 if(iiii!=orTable-1) printf (":");
 }
@@ -658,6 +663,7 @@ close (f1);
 
 
 void fselect(int argc){
+long double *ll1;
 char *d;
 int f4=0;
 int f1=0;
@@ -679,7 +685,10 @@ f4=recordload(f1);
 if (f4!=0){
 for(iiii=0;iiii<orTable;iiii++){
 if (tsizet[ordertable[iiii]][0]==1) recordInteger(&recordq[sumtable[iiii]]);
-if (tsizet[ordertable[iiii]][0]==2) recordNumber(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==2){
+ll1=(long double *) &recordq[sumtable[iiii]];
+printf("%lf",*(ll1+0));
+}
 if (tsizet[ordertable[iiii]][0]==0) recordTxt(&recordq[sumtable[iiii]]);
 if(iiii!=orTable-1) printf (":");
 }
@@ -729,6 +738,7 @@ valueTxt(argvs[3],(char) gg);
 
 
 void ffind(int argc){
+long double *ll1;
 int sss=0;
 char *d;
 char *ccc;
@@ -757,7 +767,10 @@ ll=strstr(&recordq[selector],argvs[3]);
 if (f4!=0 && ll!=NULL){
 for(iiii=0;iiii<orTable;iiii++){
 if (tsizet[ordertable[iiii]][0]==1) recordInteger(&recordq[sumtable[iiii]]);
-if (tsizet[ordertable[iiii]][0]==2) recordNumber(&recordq[sumtable[iiii]]);
+if (tsizet[ordertable[iiii]][0]==2){
+ll1=(long double *) &recordq[sumtable[iiii]];
+printf("%lf",*(ll1+0));
+}
 if (tsizet[ordertable[iiii]][0]==0) recordTxt(&recordq[sumtable[iiii]]);
 if(iiii!=orTable-1) printf (":");
 }
