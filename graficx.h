@@ -63,6 +63,8 @@ void lineR(int x,int y,int x2,int y2,char color);
 void lineL(int x,int y,int x2,int y2,char color);
 void line(int x,int y,int x2,int y2,char color);
 void rectangle(int x,int y,int x2,int y2,char color);
+void triangle(int x1,int y1,int x2,int y2,int x3,int y3,char color);
+
 
 
 unsigned char font8x8[FONTDATAMAX] = {
@@ -3211,10 +3213,11 @@ line(x,y,x1,y1,color);
 
 }
 
-
-
-
-
+void triangle(int x1,int y1,int x2,int y2,int x3,int y3,char color){
+line(x1,y1,x2,y2,color);
+line(x2,y2,x3,y3,color);
+line(x3,y3,x1,y1,color);
+}
 
 
 
