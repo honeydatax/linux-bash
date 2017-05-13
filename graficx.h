@@ -38,6 +38,7 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+void triod(int x,int y,int h,int c,char color);
 void tri(int x,int y,int h,int c,char color);
 void circle(int xx,int yy ,int rr,char color);
 void ball(int xx,int yy ,int rr,char color);
@@ -3233,6 +3234,33 @@ cc++;
 
 }
 }
+
+void triod(int x,int y,int h,int c,char color){
+int i=0,cc=1,ccc=0;
+for (i=0;i<h;i++){
+line(x-cc,y+i,x+cc,y+i,color);
+cc=cc+c;
+
+
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
