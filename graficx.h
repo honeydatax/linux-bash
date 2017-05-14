@@ -38,6 +38,7 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+void fffill(int x,int y,char color);
 void poligan(int *p,int size,char color);
 void triod(int x,int y,int h,int c,char color);
 void tri(int x,int y,int h,int c,char color);
@@ -3264,6 +3265,73 @@ color=*(Uint8 *)p;
 } 
 
 
+void fffill(int x,int y,char color){
+char i=0;
+char b=0;
+int xx=x;
+int yy=y;
+do{
+i=gpixel(xx,yy);
+ppixel(xx,yy,color);
+if (i<0 || i == color){
+yy++;
+xx=x;
+i=gpixel(xx,yy);
+if (xx==x && i == color)b=1;
+}else xx--;
+if (yy>350)b=1;
+}while(b!=1);
+
+i=0;
+b=0;
+xx=x+1;
+yy=y;
+do{
+i=gpixel(xx,yy);
+ppixel(xx,yy,color);
+if (i<0 || i == color){
+yy++;
+xx=x+1;
+i=gpixel(xx,yy);
+if (xx==x+1 && i == color)b=1;
+}else xx++;
+if (yy>350)b=1;
+}while(b!=1);
+
+i=0;
+b=0;
+xx=x;
+yy=y-1;
+do{
+i=gpixel(xx,yy);
+ppixel(xx,yy,color);
+if (i<0 || i == color){
+yy--;
+xx=x;
+i=gpixel(xx,yy);
+if (xx==x && i == color)b=1;
+}else xx--;
+if (yy<0)b=1;
+}while(b!=1);
+
+i=0;
+b=0;
+xx=x+1;
+yy=y-1;
+do{
+i=gpixel(xx,yy);
+ppixel(xx,yy,color);
+if (i<0 || i == color){
+yy--;
+xx=x+1;
+i=gpixel(xx,yy);
+if (xx==x+1 && i == color)b=1;
+}else xx++;
+if (yy>350)b=1;
+}while(b!=1);
+
+
+}
 
 
 
