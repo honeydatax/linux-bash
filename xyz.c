@@ -146,10 +146,10 @@ x=8-x;
 y=8-y;
 z=8-z;
 int a12=600/2;
-int b12=350/2;
+int b12=350/6;
 *getsizess=y*rsize;
 *getx=a12+(*getsizess)*(x-4);
-*gety=b12+(*getsizess)*(y-4);
+*gety=b12+(*getsizess)*(y-4+1);
 }
 
 
