@@ -48,8 +48,10 @@ void uball(int x,int y,int r,char color);
 void clear();
 void cls(char color);
 void box(int x,int y,int x2,int y2,char color);
+void boxs(int x,int y,int x2,int y2,char color);
 void verputs(int x,int y,char color,char *c);
 void gputs(int x,int y,char color,char *c);
+char gpixel(int x,int y);
 void ppixel(int x,int y,char color);
 void hline(int x,int y,int x2,char color);
 void vline(int x,int y,int y2,char color);
@@ -3253,6 +3255,13 @@ line(p[i],p[i+1],p[i+2],p[i+3],color);
 }
 }
 
+char gpixel(int x,int y){
+char color=-1;
+if(x>=0 && x<600 && y>=0 && y<350){
+Uint8 *p=(Uint8*)s->pixels+y*s->pitch+x;
+color=*(Uint8 *)p;
+}
+} 
 
 
 
