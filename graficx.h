@@ -38,6 +38,7 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+void poligan(int *p,int size,char color);
 void triod(int x,int y,int h,int c,char color);
 void tri(int x,int y,int h,int c,char color);
 void circle(int xx,int yy ,int rr,char color);
@@ -3245,6 +3246,12 @@ cc=cc+c;
 }
 }
 
+void poligan(int *p,int size,char color){
+int i=0,cc=1,ccc=0;
+for (i=0;i<(size-1)*2-1;i=i+2){
+line(p[i],p[i+1],p[i+2],p[i+3],color);
+}
+}
 
 
 
