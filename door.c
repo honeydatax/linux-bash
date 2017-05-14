@@ -30,6 +30,7 @@ struct timeval start, ends;
 
 
 int main(){
+char tta[1048];
 int cursors2=0;
 int ppdor=0;
 int cursors=0;
@@ -163,7 +164,11 @@ i2=event.motion.y;
 for(i4=600;i4<608;i4++){
 if ((i1>rrr[i4].x)&&(i1<rrr[i4].x+rrr[i4].w)&&(i2>rrr[i4].y)&&(i2<rrr[i4].y+rrr[i4].h)){
 if (i4-600==0) chdir ("..");
-else chdir (pdoor[i4-601+ppdor]);
+else {strcpy(tta,"xdg-open ");
+strcat(tta,pdoor[i4-601+ppdor]);
+if(i4-601+ppdor>=ttotal)system(tta);
+chdir (pdoor[i4-601+ppdor]);
+}
 list();
 ppdor=0;
 usleep(900000);
