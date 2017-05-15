@@ -38,6 +38,7 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+void fillPolygan(int x,int y,int r,int division, char color);
 void poly(int xx,int yy ,int rr,int divisions,int *p);
 void fffill(int x,int y,char color);
 void poligan(int *p,int size,char color);
@@ -3253,6 +3254,7 @@ cc=cc+c;
 void poligan(int *p,int size,char color){
 int i=0,cc=1,ccc=0;
 for (i=0;i<(size-1)*2-1;i=i+2){
+ppixel(p[i],p[i+1],color);
 line(p[i],p[i+1],p[i+2],p[i+3],color);
 }
 }
@@ -3274,7 +3276,7 @@ int yy=y;
 do{
 i=gpixel(xx,yy);
 ppixel(xx,yy,color);
-if (i<0 || i == color){
+if (i<0 || i == color || xx < 0){
 yy++;
 xx=x;
 i=gpixel(xx,yy);
@@ -3290,7 +3292,7 @@ yy=y;
 do{
 i=gpixel(xx,yy);
 ppixel(xx,yy,color);
-if (i<0 || i == color){
+if (i<0 || i == color || xx > 600){
 yy++;
 xx=x+1;
 i=gpixel(xx,yy);
@@ -3306,7 +3308,7 @@ yy=y-1;
 do{
 i=gpixel(xx,yy);
 ppixel(xx,yy,color);
-if (i<0 || i == color){
+if (i<0 || i == color || xx < 0){
 yy--;
 xx=x;
 i=gpixel(xx,yy);
@@ -3322,7 +3324,7 @@ yy=y-1;
 do{
 i=gpixel(xx,yy);
 ppixel(xx,yy,color);
-if (i<0 || i == color){
+if (i<0 || i == color || xx > 600){
 yy--;
 xx=x+1;
 i=gpixel(xx,yy);
@@ -3359,7 +3361,12 @@ p[bc*2+1]=p[1];
 
 
 
-
+void fillPolygan(int x,int y,int r,int division,char color){
+int pol[division*2 + 10];
+poly(x,y,r,division,&pol[0]);
+poligan(&pol[0],division+1,color);
+fffill(x,y,color);
+}
 
 
 
