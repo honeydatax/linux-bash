@@ -13,6 +13,20 @@
 #include <sys/stat.h>
 #include <math.h>
 
+struct control{
+int x;
+int y;
+int w;
+int h;
+};
+
+struct label{
+control c;
+char caption[100];
+char color;
+};
+
+
 
 SDL_Surface *s;
 SDL_Rect rect[1];
@@ -38,6 +52,7 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+void drawLabel(label l);
 void fillPolygan(int x,int y,int r,int division, char color);
 void poly(int xx,int yy ,int rr,int divisions,int *p);
 void fffill(int x,int y,char color);
@@ -72,6 +87,8 @@ void lineL(int x,int y,int x2,int y2,char color);
 void line(int x,int y,int x2,int y2,char color);
 void rectangle(int x,int y,int x2,int y2,char color);
 void triangle(int x1,int y1,int x2,int y2,int x3,int y3,char color);
+
+
 
 
 
@@ -3358,9 +3375,6 @@ p[bc*2]=p[0];
 p[bc*2+1]=p[1];
 }
 
-
-
-
 void fillPolygan(int x,int y,int r,int division,char color){
 int pol[division*2 + 10];
 poly(x,y,r,division,&pol[0]);
@@ -3369,7 +3383,17 @@ fffill(x,y,color);
 }
 
 
-
+void drawLabel(label l){
+char caption[100];
+if(l.c.h<16)l.c.h=16;
+boxs(l.c.x,l.c.y,l.c.x+l.c.w,l.c.y+l.c.h,WHITE);
+rectangle(l.c.x,l.c.y,l.c.x+l.c.w,l.c.y+l.c.h,l.color);
+strcpy(caption,l.caption);
+int tl=l.c.w/8+1;
+if (l.c.w/8+1> 98)tl=98;
+caption[tl]='\0';
+gputs(l.c.x+3,l.c.y+3,l.color,caption);
+}
 
 
 
