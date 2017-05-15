@@ -28,6 +28,8 @@ char color;
 
 
 
+
+
 SDL_Surface *s;
 SDL_Rect rect[1];
 
@@ -52,6 +54,8 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+void copyImage(int x,int y,int w,int h, char *img);
+void messegeBox(char *title,char *text);
 void drawLabel(label l);
 void fillPolygan(int x,int y,int r,int division, char color);
 void poly(int xx,int yy ,int rr,int divisions,int *p);
@@ -3394,6 +3398,37 @@ if (l.c.w/8+1> 98)tl=98;
 caption[tl]='\0';
 gputs(l.c.x+3,l.c.y+3,l.color,caption);
 }
+
+
+void putImage(int x,int y,int w,int h, char *img){
+int ix=0;
+int iy=0;
+for (iy=0;iy<h+1;iy++){
+for (ix=0;ix<w+1;ix++){
+ppixel(x+ix,y+iy,img[iy*w+ix]);
+}
+}
+}
+
+
+
+
+void copyImage(int x,int y,int w,int h, char *img){
+int ix=0;
+int iy=0;
+for (iy=0;iy<h+1;iy++){
+for (ix=0;ix<w+1;ix++){
+img[iy*w+ix]=gpixel(x+ix,y+iy);
+}
+}
+}
+
+
+
+
+
+
+
 
 
 
