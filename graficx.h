@@ -26,6 +26,17 @@ char caption[100];
 char color;
 };
 
+struct button{
+control c;
+char caption[100];
+char color;
+void (*onClick)();
+};
+
+
+
+
+
 
 
 
@@ -54,6 +65,10 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+void messageBox(char *c,char color,void (*onClick)());
+void drawButton(button ll);
+int controlClick(control *c);
+void centerControl (control *c,int tw,int th);
 void copyImage(int x,int y,int w,int h, char *img);
 void messegeBox(char *title,char *text);
 void drawLabel(label l);
@@ -3424,14 +3439,106 @@ img[iy*w+ix]=gpixel(x+ix,y+iy);
 }
 
 
+void centerControl (control *c,int tw,int th){
+c->x=(tw-c->w)/2;
+c->y=(th-c->h)/2;
+}
+
+
+int controlClick(control *c){
+SDL_Event event;
+int a=0;
+int x;
+int y;
+
+if(SDL_PollEvent(&event)){
+
+if(event.type==SDL_MOUSEBUTTONDOWN){
+if(event.button.button == SDL_BUTTON_LEFT){
+x=event.motion.x;
+y=event.motion.y;
+if(x>c->x && x<c->x+c->w && y>c->y && y<c->y+c->h) a=1;
+}
+}
 
 
 
+if(event.type==SDL_MOUSEBUTTONUP){
+if(event.button.button == SDL_BUTTON_LEFT){
+x=event.motion.x;
+y=event.motion.y;
+if(x>c->x && x<c->x+c->w && y>c->y && y<c->y+c->h) a=0;
+}
+
+}
+}
+return a;
+}
 
 
+void drawButton(button ll){
+label l;
+l.c.x=ll.c.x;
+l.c.y=ll.c.y;
+l.c.w=ll.c.w;
+l.c.h=ll.c.h;
+strcpy(l.caption,ll.caption);
+l.color=ll.color;
+drawLabel(l);
+}
 
 
+void buttonWait(button ll){
 
+int i1=0;
+
+do{
+i1=controlClick(&ll.c);
+}while(i1!=1);
+
+do{
+i1=controlClick(&ll.c);
+}while(i1!=0);
+
+(*ll.onClick)();
+
+}
+
+
+void messageBox(char *c,char color,void (*onClick)()){
+char img[201*101];
+control ll;
+ll.x=0;
+ll.y=0;
+ll.w=200;
+ll.h=100;
+centerControl(&ll,600,350);
+copyImage(ll.x,ll.y,ll.w,ll.h,&img[0]);
+button l2;
+label l;
+l.c.x=ll.x;
+l.c.y=ll.y;
+l.c.w=ll.w;
+l.c.h=ll.h;
+strcpy(l.caption,c);
+l.color=color;
+l2.color=color;
+drawLabel(l);
+l2.c.x=0;
+l2.c.y=0;
+l2.c.h=16;
+l2.c.w=11*2;
+strcpy(l2.caption,"OK");
+centerControl(&l2.c,200,100);
+l2.c.x=l2.c.x+ll.x;
+l2.c.y=l2.c.y+ll.y;
+l2.onClick=onClick;
+drawButton(l2);
+refresh();
+buttonWait(l2);
+putImage(ll.x,ll.y,ll.w,ll.h,&img[0]);
+refresh();
+}
 
 
 
