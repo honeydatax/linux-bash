@@ -12,16 +12,16 @@ fi
 
 
 pwds="$PWD/out.txt"
-
+pwdss="$PWD"
 
 while :
 do
-
+z="$PWD"
 sudo ls > "$pwds" 
-a=$(zenity --list  --title="sudo file"  --text="sudo file" --column="menu" < "$pwds")
+a=$(zenity --list  --title="sudo file"  --text="sudo file" --column="$z" < "$pwds")
 exits "$?"
 printf "dir back\nchange dir\nnew dir\nnew file\ncopy file\nmove file\nrename\ndelete\nopen" > "$pwds" 
-b=$(zenity --list  --title="sudo file"  --text="sudo file" --column="menu" < "$pwds")
+b=$(zenity --list  --title="sudo file"  --text="sudo file" --column="$z" < "$pwds")
 exits "$?"
 
 if [ "$b" = "dir back" ];
@@ -47,7 +47,8 @@ if [ "$b" = "new file" ];
 then 
 c=$(zenity --entry  --title="make new file"  --text="make new file" )
 exits "$?"
-sudo printf "" > "$c"
+printf "" > "$pwdss/$c"
+sudo mv "$pwdss/$c" "$PWD/"
 sudo xdg-open "$c"
 fi
 
@@ -85,7 +86,7 @@ fi
 
 if [ "$b" = "open" ];
 then 
-xdg-open "$a"
+sudo xdg-open "$a"
 fi
 
 
