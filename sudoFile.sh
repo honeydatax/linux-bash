@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+
+
 exits(){
 if [ "$1" = "1" ];
 then 
@@ -8,14 +11,17 @@ fi
 }
 
 
+pwds="$PWD/out.txt"
+
+
 while :
 do
 
-ls > out.txt 
-a=$(zenity --list  --title="sudo file"  --text="sudo file" --column="menu" < out.txt)
+sudo ls > "$pwds" 
+a=$(zenity --list  --title="sudo file"  --text="sudo file" --column="menu" < "$pwds")
 exits "$?"
-printf "dir back\nchange dir\nnew dir\nnew file\ncopy file\nmove file\nrename\ndelete\nopen" > out.txt 
-b=$(zenity --list  --title="sudo file"  --text="sudo file" --column="menu" < out.txt)
+printf "dir back\nchange dir\nnew dir\nnew file\ncopy file\nmove file\nrename\ndelete\nopen" > "$pwds" 
+b=$(zenity --list  --title="sudo file"  --text="sudo file" --column="menu" < "$pwds")
 exits "$?"
 
 if [ "$b" = "dir back" ];
