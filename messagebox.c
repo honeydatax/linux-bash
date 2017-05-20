@@ -30,18 +30,16 @@ startX();
 char kl[]="im love marina.";
 char *kll=kl;
 
-
+control c;
 int len;
-button tl;
-strcpy(tl.caption,kll);
-len=(strlen(tl.caption)+1)*9;
-tl.c.x=4;
-tl.c.y=4;
-tl.c.w=len;
-tl.c.h=16;
-tl.color=BLUE;
-centerControl (&tl.c,600,350);
 caption(kll);
+c.x=4;
+c.y=4;
+c.w=500;
+c.h=250;
+int color=BLUE;
+centerControl (&c,600,350);
+grid (c,5,color);
 messageBox(kll,BLUE,&onClicks);
 
 usleep(5000000);
