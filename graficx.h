@@ -76,6 +76,8 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+long getSeconds();
+void outSide(int y);
 void getDates(char *c);
 void drawTitle(textBar l);
 void drawText(label l);
@@ -3820,9 +3822,19 @@ strcpy(c,ttimes);
 }
 
 
+void outSide(int y){
+boxs(0,0,599,y,CYAN);
+boxs(0,y,599,349,BROWN);
+}
 
 
-
+long getSeconds(){
+time_t rawtime;
+struct tm *timeinfo;
+struct timeval ends;
+gettimeofday(&ends,NULL);
+return (long) ends.tv_sec;
+}
 
 
 
