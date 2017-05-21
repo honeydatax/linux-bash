@@ -76,6 +76,7 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+void getxyz(int x,int y, int z,int *getx,int *gety,int *getsizess,int rsize);
 long getSeconds();
 void outSide(int y);
 void getDates(char *c);
@@ -3835,6 +3836,21 @@ struct timeval ends;
 gettimeofday(&ends,NULL);
 return (long) ends.tv_sec;
 }
+
+
+void getxyz(int x,int y, int z,int *getx,int *gety,int *getsizess,int rsize){
+x=8-x;
+y=8-y;
+z=8-z;
+int a12=600/2;
+int b12=350/6;
+*getsizess=y*rsize;
+*getx=a12+(*getsizess)*(x-4);
+*gety=b12+(*getsizess)*(y-4+1)-(z*rsize);
+}
+
+
+
 
 
 
