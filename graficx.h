@@ -70,6 +70,10 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
+
+void hmenuWait(int count);
+void hsizeMenu(int count);
+void hmenu(int count);
 void menuWait(int count);
 void drawMenus(menus ll);
 void menu(int count);
@@ -3523,6 +3527,7 @@ i1=controlClick(&ll.c);
 void messageBox(char *c,char color,void (*onClick)()){
 char img[201*101];
 control ll;
+int tlen=0;
 ll.x=0;
 ll.y=0;
 ll.w=200;
@@ -3542,8 +3547,9 @@ drawLabel(l);
 l2.c.x=0;
 l2.c.y=0;
 l2.c.h=16;
-l2.c.w=11*2;
 strcpy(l2.caption,"OK");
+tlen=textW(l2.caption)+9;
+l2.c.w=tlen;
 centerControl(&l2.c,200,100);
 l2.c.x=l2.c.x+ll.x;
 l2.c.y=l2.c.y+ll.y;
@@ -3634,7 +3640,7 @@ index=mainMenu[count-1].c.y+mainMenu[0].c.h;
 i1=index-i1+8;
 i=i*i1;
 char img[i]; 
-copyImage(mainMenu[0].c.x,mainMenu[0].c.y,mainMenu[0].c.w,mainMenu[count-1].c.y+mainMenu[count-1].c.h,&img[0]);
+copyImage(mainMenu[0].c.x,mainMenu[0].c.y,mainMenu[0].c.w,mainMenu[count-1].c.y-mainMenu[0].c.y+mainMenu[count-1].c.h,&img[0]);
 
 menu(count);
 
@@ -3669,14 +3675,98 @@ if (event.type == SDL_VIDEOEXPOSE) refresh();
 
 (*mainMenu[index].onClick)(index);
 
-putImage(mainMenu[0].c.x,mainMenu[0].c.y,mainMenu[0].c.w,mainMenu[count-1].c.y+mainMenu[count-1].c.h,&img[0]);
+putImage(mainMenu[0].c.x,mainMenu[0].c.y,mainMenu[0].c.w,mainMenu[count-1].c.y-mainMenu[0].c.y+mainMenu[count-1].c.h,&img[0]);
 refresh();
 }
 
 
 
+void hmenu(int count){
+int w=0;
+int i=0;		
+for (i=0;i<count;i++){
+drawMenus(mainMenu[i]);
+}
+}
+
+void hmenuWait(int count){
+SDL_Event event;
+int a=0;
+int x;
+int y;
+
+int index=0;
+int i1=0;
+int i=0;
+int i2=0;
+int i3=0;
+
+hsizeMenu(count);
+
+i=mainMenu[0].c.h+8;
+i1=mainMenu[0].c.x;
+index=mainMenu[count-1].c.x+mainMenu[count-1].c.w;
+i1=index-i1+8;
+i=i*i1;
+char img[i]; 
+copyImage(mainMenu[0].c.x,mainMenu[0].c.y,mainMenu[count-1].c.x-mainMenu[0].c.x+mainMenu[count-1].c.w,mainMenu[0].c.h,&img[0]);
+
+hmenu(count);
+refresh();
+index=0;
+i1=0;
+i=0;
 
 
+do{
+index=i;
+
+if(SDL_PollEvent(&event)){
+
+if(event.type==SDL_MOUSEBUTTONDOWN){
+if(event.button.button == SDL_BUTTON_LEFT){
+x=event.motion.x;
+y=event.motion.y;
+for (i=0;i<count;i++){
+if(x>mainMenu[i].c.x && x<mainMenu[i].c.x+mainMenu[i].c.w && y>mainMenu[i].c.y && y<mainMenu[i].c.y+mainMenu[i].c.h){
+i1=1;
+index=i;
+}
+}
+}
+
+
+
+}
+}
+if (event.type == SDL_VIDEOEXPOSE) refresh();
+}while(i1!=1);
+
+(*mainMenu[index].onClick)(index);
+
+
+
+putImage(mainMenu[0].c.x,mainMenu[0].c.y,mainMenu[count-1].c.x-mainMenu[0].c.x+mainMenu[count-1].c.w,mainMenu[0].c.h,&img[0]);
+
+refresh();
+}
+
+
+void hsizeMenu(int count){
+int h=0;
+int i=0;
+int y=mainMenu[0].c.y;
+int x=mainMenu[0].c.x;
+for (i=0;i<count;i++){
+if (h < mainMenu[i].c.h)h=mainMenu[i].c.h;
+}
+for (i=0;i<count;i++){
+mainMenu[i].c.h=h;
+mainMenu[i].c.y=y;
+mainMenu[i].c.x=x;
+x=x+mainMenu[i].c.w;
+}
+} 
 
 
 
