@@ -76,7 +76,9 @@ SDL_Rect rect[1];
 #define WHITE         255
 
 void LOOPS();
-
+void getDates(char *c);
+void drawTitle(textBar l);
+void drawText(label l);
 void hmenuWait(int count);
 void hsizeMenu(int count);
 void hmenu(int count);
@@ -3787,7 +3789,35 @@ gputs(l.c.x+3,l.c.y+3,l.color,caption);
 }
 
 
+void drawTitle(textBar l){
+int i=0;
+int len=0;
+char caption[100];
+if(l.c.h<16)l.c.h=16;
+boxs(l.c.x,l.c.y,l.c.x+l.c.w,l.c.y+l.c.h,l.bcolor);
+strcpy(caption,l.caption);
+int tl=l.c.w/8-1;
+if (tl<0) tl=0;
+if (l.c.w/8+1> 98)tl=98;
+caption[tl]='\0';
+i=l.c.w;
+len=textW(&caption[0]);
+l.c.w=len;
+centerControl(&l.c,i,l.c.y*2+l.c.h+4);
+gputs(l.c.x,l.c.y,l.color,caption);
+}
 
+void getDates(char *c){
+char ttimes[50];
+time_t rawtime;
+struct tm *timeinfo;
+struct timeval ends;
+gettimeofday(&ends,NULL);
+time(&rawtime);
+timeinfo=localtime(&rawtime);
+sprintf (ttimes,"%s",ctime(&rawtime));
+strcpy(c,ttimes);
+}
 
 
 
