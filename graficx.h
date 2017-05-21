@@ -41,6 +41,12 @@ void (*onClick)(int index);
 }mainMenu[32];
 
 
+struct textBar{
+control c;
+char caption[100];
+char color;
+char bcolor;
+};
 
 
 
@@ -3769,6 +3775,16 @@ x=x+mainMenu[i].c.w;
 } 
 
 
+void drawText(label l){
+char caption[100];
+if(l.c.h<16)l.c.h=16;
+strcpy(caption,l.caption);
+int tl=l.c.w/8-1;
+if (tl<0) tl=0;
+if (l.c.w/8+1> 98)tl=98;
+caption[tl]='\0';
+gputs(l.c.x+3,l.c.y+3,l.color,caption);
+}
 
 
 
