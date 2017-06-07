@@ -8,51 +8,58 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <unistd.h>
-#include <sys/time.h>
-#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <dirent.h>
+#include <math.h>
 
-
-#define ddir "./\0"
-
-void clear();
-void list();
+char *addItem(char *b);
+void printList(char **p,int counter);
+void freeList(char **p,int counter);
 
 int main(){
-clear();
-printf(" LIST.\n");
-list();
+int counter=17;
+char c[50];
+char *p[100];
+
+for (int a=0;a<counter;a++){
+sprintf(c,".item %d",a);
+p[a]=addItem(c);
+}
+
+printList(&p[0],counter);
+
+
+freeList(&p[0],counter);
+
 return 0;
 }
 
 
-void clear(){
-int i;
-for (i=0;i<50;i++)printf("\n");
-}
 
-void list(){
-int total=0;
-DIR *dir=opendir(ddir);
-struct dirent *ldir;
-ldir=readdir(dir);
-while(ldir!=NULL){
-printf("%s,%ld\n",ldir->d_name,ldir->d_ino);
-total++;
-ldir=readdir(dir);
-}
-closedir(dir);
-printf("total files:%d\n",total);
+char *addItem(char *b){
+char *a;
+a=(char*)malloc(50);
+strcpy(a,b);
+return a;
 }
 
 
+void printList(char **p,int counter){
+for (int a=0;a<counter;a++){
+printf("%s\n",p[a]);
+}
+
+}
 
 
+void freeList(char **p,int counter){
+
+for (int a=0;a<counter;a++){
+free(p[a]);
+}
 
 
-
+}
 
 
 
