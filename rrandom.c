@@ -26,7 +26,7 @@ srandom(time(NULL));
 for (int a=0;a<lens;a++)ll[a]=nnumber(49)+1;
 order(lens,ll1,lll);
 lens=nremover(lens,lll);
-for (int a=0;a<lens;a++)printf ("%d\n",lll[a]);
+for (int a=0;a<lens;a++)printf ("%d = %d\n",a,lll[a]);
 return 0;
 }
 
@@ -90,13 +90,11 @@ int back=-1;
 int ccc=0;
 for (int a=0;a<rrnn;a++){
 if(back==(int)ll[a]){
-cc++;
-if(a+cc<=rrnn){
-ll[a]=ll[a+cc];
+if(a<rrnn){
 rrnn--;
+for (int b=a;b<rrnn;b++)ll[b]=ll[b+1];
 }
-}
-back=(int)ll[a];
+}else back=(int)ll[a];
 }
 return rrnn;
 }
