@@ -1,10 +1,13 @@
+#include <cairo.h>
+#include <cairo-pdf.h>
+#include <gtk/gtk.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 
 
-//gcc -o out my.c
+//g++ -o out browser.c  `pkg-config gtk+-2.0 --cflags --libs`
 int linesize=50;
 int w=640;
 int h=8000;
@@ -16,6 +19,7 @@ char var1[512];
 char var2[98];
 char *aargv;
 char aargvv[]="http://www.planet-source-code.com";
+cairo_t *cr ;
 char *body_start(char *c);
 char *body_end(char *c);
 void remove_tags(char *c, char *cc);
@@ -36,8 +40,22 @@ int main(int argc, char *argv[])
 		}else{
 		aargv=argv[1];
 		}
+		cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32,w, h );
+		cr = cairo_create (surface);
+		cairo_set_source_rgb(cr,1.0,1.0,1.0);
+		cairo_set_line_width(cr,1);
+        cairo_rectangle(cr,0.0,0.0,(double)w,(double)h);
+        cairo_stroke_preserve(cr);
+        cairo_fill(cr);
+        cairo_select_font_face(cr,"mono",CAIRO_FONT_SLANT_NORMAL,CAIRO_FONT_WEIGHT_BOLD);
+        cairo_set_font_size(cr,12.0);
+        cairo_set_source_rgb(cr,0.0,0.0,0.0);
         on_selection();
-        //system("exo-open labelhtml.txt");
+        cairo_surface_write_to_png (surface, "labelhtml.png");
+        cairo_surface_destroy (surface);
+        cairo_destroy (cr);
+        
+        system("exo-open labelhtml.png");
         return 0;
 }
 
@@ -123,25 +141,28 @@ void on_selection(){
 			cc=dd+n;
 			ee=cc+1;
 			cc[0]=0;
-			printf("%s\n",dd);
+			cairo_move_to(cr,20.00,nn);
+			cairo_show_text(cr,dd);
 			nn=nn+14.0;
 			dd=ee;
 		}else{
 			n=strlen(dd);
 			if(n<linesize){
-			printf("%s\n",dd);
+			cairo_move_to(cr,20.00,nn);
+			cairo_show_text(cr,dd);
 			nn=nn+14.0;
 			ee=dd+n;
 			dd=ee;
 			}else{
 				strncpy(var2,dd,linesize);
-				printf("%s\n",var2);
+				cairo_move_to(cr,20.00,nn);
+				cairo_show_text(cr,var2);
 				nn=nn+14.0;
 				ee=dd+linesize;
 				dd=ee;
 			}
 		}
-		if (dd[0]==0)nnn=1;
+		if (dd[0]==0 || nn > 7900)nnn=1;
 	}while(nnn!=1);
 	}else{
 		printf("no page or no net?\n");
