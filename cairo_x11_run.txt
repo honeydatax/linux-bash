@@ -1,1 +1,0 @@
-g++ -o out plane.cpp  $(pkg-config --cflags --libs cairo x11)
